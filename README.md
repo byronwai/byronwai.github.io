@@ -1,4 +1,4 @@
-# 從零開始的編程生活 (Programming Life from Zero)
+# 日常記行 (Nichijou Kikou)
 
 Jekyll blog skeleton for **byronwai.github.io**, migrated from the hexo-based
 `nichijou` repository. It only uses Liquid features supported by GitHub Pages'
