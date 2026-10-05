@@ -10,11 +10,19 @@ tags: [AWS, Certification]
 
 是咁的，由於金主媽媽 sponsor 考一張 AWS Associate level 嘅 cert ，但係要係 20 Aug 之前考，所以係英國返香港之後就開始準備 Exam。
 
+> ![image3]({{ site.baseurl }}/assets/images/aws-saa/image3.png)
+>
+> Dobby is free, 多比是免費的
+
 ## Why Solution Architecture?
 
 AWS 而家嘅 cert 係無需 Prerequisite 去考。通常入門認識 AWS 會考 Cloud Practitioner (CLF-C02) 去認識 AWS 不同嘅 services。由於 Cloud Practitioner 太簡單可以裸考嘅緣故，我就直接去打 Solution Architecture。Solution Architecture 係上位版嘅 Cloud Practitioner，一樣要認識 AWS 不同嘅使用方法、定位、同 use cases。由於我而家工作性質要 review 公司嘅 AWS Infra Setup，讀返 Solution Architecture 內容會更容易理解使用不同 service 嘅原因，同 review 有機會發生嘅  misconfiguration。舉個例子，一個 VPC 係會同時俾 Security Group 同 network ACL 控制 inbound outbound traffic，但係前者係 stateful 後者係 stateless，兩個 control 係會同時生效。如果只係 customize Security Group 而無 customize network ACL，該 VPC 係會用 default network ACL a.k.a. allow all inbound and outbound traffic to VPC。
 
 註：細心嘅朋友係到已經發現，點解唔去考 SCS-C02 呢，話晒都係同 Security 直接有關？因為我張免費券無包 Profesional，要自己比 300 USD 好貴的。
+
+> ![image6]({{ site.baseurl }}/assets/images/aws-saa/image6.png)
+>
+> 每張都可以直接考，SAA-C03 考過就消失
 
 ## 我打宿儺？
 
@@ -23,23 +31,12 @@ AWS 而家嘅 cert 係無需 Prerequisite 去考。通常入門認識 AWS 會考
 SAA-003 有四大 domain:
 
 - Domain 1: Design Secure Architectures
-
 - Domain 2: Design Resilient Architectures
-
 - Domain 3: Design High-Performing Architectures
-
 - Domain 4: Design Cost-Optimized Architectures
 
 實際上考嘅係 under 不同情況之下應該用邊款 AWS solution。一條題目可能用到 3-4 款，而且有機會每個配置都合理，要配合情景揀最優解。
 
-> ![image3]({{ site.baseurl }}/assets/images/aws-saa/image3.png)
->
-> Dobby is free, 多比是免費的
->
-> ![image6]({{ site.baseurl }}/assets/images/aws-saa/image6.png)
->
-> 每張都可以直接考，SAA-C03 考過就消失
->
 > ![image2]({{ site.baseurl }}/assets/images/aws-saa/image2.png)
 >
 > 去到考個下我都係覺得自己未溫夠書
@@ -48,17 +45,24 @@ SAA-003 有四大 domain:
 
 ## Stage of Study
 
+> ![image4]({{ site.baseurl }}/assets/images/aws-saa/image4.png)
+>
+> 結果我無時間睇官方內容...
+
 A Cloud Guru 係一個好幫手嘅 webpage 俾你深入淺出咁去理解每個會考嘅 AWS services。A Cloud Guru 可以幫你達成三件事：
 
 - Lecturing - 聽老師講解 AWS services
-
 - Hands-on lab
-
 - Practice Exam
 
 我每日大概睇兩個鐘頭連續睇三個星期，包括 review take notes。有啲 services 唔理解的話會先睇 Medium 前人解釋，先再睇 AWS official introdution。去到 exam 之前我只係夠時間去聽曬所有 lesson 同做 3 set practice exam。
 
 AWS Skill Builder 上面有 materials，據說官方俾嘅 practical exam 同現實差不多。除咗免費 content 之外，AWS Skill Builder 仲有課金內容。覺得免費唔夠的話可以再課金睇。
+
+> ![image7]({{ site.baseurl }}/assets/images/aws-saa/image7.png)
+>
+> 課金之力！
+
 
 ## 關於考試
 
@@ -74,22 +78,16 @@ Online 考試需要先安裝 Pearson VUE 考試專用 software，開場之前需
 
 最後成功低空飛過合格，多謝大家！
 
-> ![image4]({{ site.baseurl }}/assets/images/aws-saa/image4.png)
->
-> 結果我無時間睇官方內容...
->
-> ![image7]({{ site.baseurl }}/assets/images/aws-saa/image7.png)
->
-> 課金之力！
->
+
 > ![image1]({{ site.baseurl }}/assets/images/aws-saa/image1.png)
 >
 > Pearson VUE exam center 示意圖，香港 exam center 無人直接督促，但係有好多 CCTV 望住
->
+
+
 > ![image5]({{ site.baseurl }}/assets/images/aws-saa/image5.png)
 >
 > 如果唔 pass 就唔會見到篇文，你話係咪啊哈姆太郎
->
+
 > ![image8]({{ site.baseurl }}/assets/images/aws-saa/image8.png)
 >
 > 唔係賣廣告， 玩 AWS BuilderCards 記得唔同 service 用途可以有助溫書
