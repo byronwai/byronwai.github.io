@@ -6,7 +6,7 @@
 {% else %}
 <meta name="description" content="{{ site.description }}">
 {% endif %}
-<meta name="theme-color" content="#191715">
+<meta name="theme-color" content="#070b14">
 <script>
   // Dark is the default. A previously saved choice always wins.
   // Applied before any stylesheet renders to avoid a flash.
@@ -18,11 +18,11 @@
     } catch (e) {}
     document.documentElement.setAttribute('data-theme', theme);
     var m = document.querySelector('meta[name="theme-color"]');
-    if (m) m.setAttribute('content', theme === 'dark' ? '#191715' : '#faf8f5');
+    if (m) m.setAttribute('content', theme === 'dark' ? '#070b14' : '#eef2f8');
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Serif+TC:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
