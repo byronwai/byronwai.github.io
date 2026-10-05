@@ -10,13 +10,13 @@ Author: G on JK
 
 ### 遊戲背景
 
-金庸群俠傳 2 加強版是一款基於金庸群俠傳的創作遊戲，基於 Flash 運行並大幅更改原作遊戲模式[^a]。玩家進入遊戲後會扮演一名江湖俠客，學習不同武功心法外，更能體驗金庸筆下不同主角的心路歷程。
+金庸群俠傳 2 加強版是一款基於金庸群俠傳的創作遊戲，基於 Flash 運行並大幅更改原作遊戲模式。玩家進入遊戲後會扮演一名江湖俠客，學習不同武功心法外，更能體驗金庸筆下不同主角的心路歷程。
 
 ### 目的
 
 遊戲中有不少招式學習前或進入場地前有隱藏條件，預先破解遊戲的話就可以直接得悉。例如周伯通會根據玩家悟性高低教授 左右互搏 或 空明拳。因此正常情況下玩家只能學習其一，不能一命通關獲得所有招式心法。我們亦可可以嘗試用特殊方法直接更改招式等級，省去大量招式升級時間。在未來文章中會介紹 Flash 與 ActionScript 之關係，Static Code Analysis 查看遊戲底層邏輯，存檔更改，及 Runtime 更改 variable。
 
-### 遊戲執行[^b]
+### 遊戲執行
 
 Flash Game 所使用的格式爲 .swf，使用以下程式即可播放：
 
@@ -33,7 +33,7 @@ Flash Game 所使用的格式爲 .swf，使用以下程式即可播放：
 
 %APPDATA%\\Macromedia\\Flash Player\\#SharedObjects\\
 
-根據本機擺放位置不同，其中的子目錄會有差異。可找到 gamezly.sol[^c][^d]。本系列只會針對 gamezly.sol 作修改。
+根據本機擺放位置不同，其中的子目錄會有差異。可找到 gamezly.sol。本系列只會針對 gamezly.sol 作修改。
 
 ![image1]({{ site.baseurl }}/assets/images/jinyong-reverse-vol-1/image1.png)
 
@@ -48,11 +48,3 @@ Flash Game 所使用的格式爲 .swf，使用以下程式即可播放：
 ![image3]({{ site.baseurl }}/assets/images/jinyong-reverse-vol-1/image3.jpg)
 
 在之後文章中會嘗試更改屬性，同時以靜態分析方法查看屬性更改條件，以及屬性值對遊戲劇情之差異。
-
-[^a]: ?
-
-[^b]: 可以講吓隻 game 嘅背景，同埋喺一開頭講今次嘅目的
-
-[^c]: 我諗佢哋淨係知 gamezly.sol 已經得？定有幾個存檔有得利用 :thinking:
-
-[^d]: 有道理
