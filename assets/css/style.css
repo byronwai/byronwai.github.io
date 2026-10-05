@@ -1,51 +1,14 @@
 /* ============================================================
    錯題簿 — "Editorial journal" stylesheet
    Plain CSS for GitHub Pages (Jekyll 3.9 + kramdown + Rouge).
-   Warm-paper light theme by default; dark theme applied via
-   [data-theme="dark"] on <html>, toggled in the header and
+   Dark theme by default; light theme applied via
+   [data-theme="light"] on <html>, toggled in the header and
    persisted in localStorage. No SCSS, no build-time JS.
    ============================================================ */
 
 /* ---------- Design tokens ---------- */
 
 :root {
-  color-scheme: light;
-
-  --bg: #faf8f5;
-  --surface: #ffffff;
-  --text: #292524;
-  --text-soft: #57534e;
-  --muted: #79716b;
-
-  --accent: #b3402a;             /* cinnabar / seal red */
-  --accent-dark: #8f2f1c;        /* hover / pressed */
-  --accent-soft: #f7e9e5;
-  --accent-border: #e5c3ba;
-  --accent-contrast: #ffffff;    /* text sitting on accent fills */
-
-  --border: #e7e2da;
-  --code-inline-bg: #f1ede7;
-  --table-head-bg: #f1ede7;
-  --header-bg: rgba(250, 248, 245, 0.85);
-  --shadow: 0 2px 10px rgba(41, 37, 36, 0.08);
-
-  /* Code blocks are always dark, in both themes. */
-  --code-dark-bg: #1c1917;
-  --code-dark-text: #e7e2da;
-
-  /* The seal stamp keeps its cinnabar ink in both themes. */
-  --seal-bg: #b3402a;
-  --seal-text: #fff7f2;
-
-  --font-serif: "Noto Serif TC", "Source Han Serif TC", "Songti TC", serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", "Noto Sans TC",
-    "Microsoft JhengHei", "PingFang TC", sans-serif;
-  --font-mono: "JetBrains Mono", "Cascadia Code", Consolas,
-    "Courier New", monospace;
-}
-
-[data-theme="dark"] {
   color-scheme: dark;
 
   --bg: #191715;
@@ -65,6 +28,43 @@
   --table-head-bg: #2a2622;
   --header-bg: rgba(25, 23, 21, 0.85);
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+
+  /* Code blocks are always dark, in both themes. */
+  --code-dark-bg: #1c1917;
+  --code-dark-text: #e7e2da;
+
+  /* The seal stamp keeps its cinnabar ink in both themes. */
+  --seal-bg: #b3402a;
+  --seal-text: #fff7f2;
+
+  --font-serif: "Noto Serif TC", "Source Han Serif TC", "Songti TC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Noto Sans TC",
+    "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", Consolas,
+    "Courier New", monospace;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --text: #292524;
+  --text-soft: #57534e;
+  --muted: #79716b;
+
+  --accent: #b3402a;             /* cinnabar / seal red */
+  --accent-dark: #8f2f1c;        /* hover / pressed */
+  --accent-soft: #f7e9e5;
+  --accent-border: #e5c3ba;
+  --accent-contrast: #ffffff;    /* text sitting on accent fills */
+
+  --border: #e7e2da;
+  --code-inline-bg: #f1ede7;
+  --table-head-bg: #f1ede7;
+  --header-bg: rgba(250, 248, 245, 0.85);
+  --shadow: 0 2px 10px rgba(41, 37, 36, 0.08);
 }
 
 /* ---------- Base ---------- */
