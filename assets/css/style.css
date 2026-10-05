@@ -26,8 +26,11 @@
   --border: #332f2a;
   --code-inline-bg: #2a2622;
   --table-head-bg: #2a2622;
+  --table-row-alt: #241f1c;
   --header-bg: rgba(25, 23, 21, 0.85);
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  --page-glow: radial-gradient(1100px 420px at 50% -80px,
+    rgba(224, 104, 74, 0.08), transparent 70%);
 
   /* Code blocks are always dark, in both themes. */
   --code-dark-bg: #1c1917;
@@ -63,8 +66,11 @@
   --border: #e7e2da;
   --code-inline-bg: #f1ede7;
   --table-head-bg: #f1ede7;
+  --table-row-alt: #f6f2ec;
   --header-bg: rgba(250, 248, 245, 0.85);
   --shadow: 0 2px 10px rgba(41, 37, 36, 0.08);
+  --page-glow: radial-gradient(1100px 420px at 50% -80px,
+    rgba(179, 64, 42, 0.07), transparent 70%);
 }
 
 /* ---------- Base ---------- */
@@ -940,7 +946,9 @@ th {
   .site-header,
   .site-footer,
   .post-nav,
-  .theme-toggle {
+  .theme-toggle,
+  .back-to-top,
+  .hero {
     display: none;
   }
 
@@ -957,5 +965,220 @@ th {
   pre,
   .highlight {
     border: 1px solid #cccccc;
+  }
+}
+
+/* ============================================================
+   Polish pass
+   ============================================================ */
+
+/* Faint cinnabar glow at the top of the page, per theme. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 480px;
+  background: var(--page-glow);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Gentle rise-in for the main column on every page. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+main.site-main {
+  animation: rise-in 0.45s ease both;
+}
+
+/* ---------- Homepage masthead ---------- */
+
+.hero {
+  margin: 1.5rem 0 3rem;
+  padding: 1.25rem 0 2rem;
+  text-align: center;
+}
+
+.hero-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 6px;
+  background: var(--seal-bg);
+  color: var(--seal-text);
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-4deg);
+  box-shadow: 0 3px 14px rgba(179, 64, 42, 0.35);
+  user-select: none;
+}
+
+.hero-desc {
+  max-width: 34rem;
+  margin: 1.15rem auto 0;
+  color: var(--text-soft);
+  font-size: 1.02rem;
+}
+
+.hero-meta {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- Post list hover accent ---------- */
+
+.post-list li {
+  position: relative;
+  padding: 0.75rem 0 0.75rem 0.95rem;
+}
+
+.post-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.post-list li:hover::before {
+  opacity: 1;
+}
+
+.post-list .post-date {
+  min-width: 5.5ch;
+}
+
+/* ---------- Back to top ---------- */
+
+.back-to-top {
+  position: fixed;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease,
+    background-color 0.25s ease, border-color 0.25s ease,
+    color 0.25s ease;
+  box-shadow: var(--shadow);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.back-to-top:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* ---------- Article polish ---------- */
+
+/* Images lift very slightly on hover. */
+.post-content img,
+.page-content img {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.post-content img:hover,
+.page-content img:hover {
+  transform: translateY(-2px);
+}
+
+/* Code blocks get a hairline and a faint inner sheen. */
+.highlight,
+pre {
+  border: 1px solid rgba(232, 226, 218, 0.08);
+  box-shadow: inset 0 1px 0 rgba(232, 226, 218, 0.04);
+}
+
+/* Zebra striping on data tables. */
+tbody tr:nth-child(even) td {
+  background: var(--table-row-alt);
+}
+
+/* Blockquote marker ornament. */
+blockquote {
+  position: relative;
+}
+
+/* ---------- 404 ---------- */
+
+.notfound-title {
+  position: relative;
+  font-size: 2.1rem;
+}
+
+.page .notfound-title::before {
+  content: "錯";
+  position: absolute;
+  top: -0.9rem;
+  left: -0.4rem;
+  z-index: -1;
+  color: var(--accent);
+  opacity: 0.12;
+  font-family: var(--font-serif);
+  font-size: 11rem;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ---------- Motion guard for the new effects ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  main.site-main {
+    animation: none;
+  }
+
+  .back-to-top {
+    transition: none;
+  }
+
+  .post-content img,
+  .page-content img {
+    transition: none;
+  }
+
+  .post-content img:hover,
+  .page-content img:hover {
+    transform: none;
   }
 }
