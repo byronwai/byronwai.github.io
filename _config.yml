@@ -18,7 +18,7 @@ highlighter: rouge
 permalink: /:year/:month/:day/:title/
 
 remote_theme: mmistakes/minimal-mistakes
-minimal_mistakes_skin: dirt
+minimal_mistakes_skin: dark
 
 search: true
 
