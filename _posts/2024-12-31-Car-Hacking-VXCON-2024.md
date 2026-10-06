@@ -3,7 +3,7 @@ layout: post
 title: "Car Hacking @ VXCON 2024"
 date: 2024-12-31 12:00:00 +0000
 slug: "Car-Hacking-VXCON-2024"
-tags: [Car Hacking, Conference]
+tags: [Car Hacking, Conference, VXCON]
 ---
 ### 前文提要
 

@@ -3,7 +3,7 @@ layout: post
 title: "SINCON 2024 Recollections"
 date: 2024-07-31 12:00:00 +0000
 slug: "SINCON-2024-Recollections"
-tags: [Conference]
+tags: [SINCON, Conference]
 ---
 I was in SINCON 2024 to promote the products of my company. So I was like spending my first 3 days on booth setup and staying around the booth.
 

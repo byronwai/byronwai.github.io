@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hacking the HITCON NFC Battle — One Card, Two Thousand Friends, and Every Way to Bend the Rules"
+title: "Hacking the HITCON NFC Battle"
 date: 2026-09-30 12:00:00 +0000
 slug: "HITCON-NFC-Battle"
 tags: [HITCON, NFC]

@@ -150,11 +150,11 @@ His closing thesis is that visibility beats model strength. Observability and ex
 
 ## Day 2, August 22
 
-### Out of LINE: QR Code to Wormable RCE in LINE Client · Flydragon
+### Out of LINE: QR Code to Wormable RCE in LINE Client · Flydragon 林紘騰
 
 Rating: ★★★★☆
 
-The pitch in the notes is "LLM → bounty → profit", but the talk itself is honest that fully automated hunting didn't work and a human still supplies the ideas.
+The pitch in the notes is "LLM → bounty → 發財", but the talk itself is honest that fully automated hunting didn't work and a human still supplies the ideas.
 
 The findings, in order: a chat DoS from a one-byte overflow in libandromeda.so (the VoIP library), a DoS in the image parser around E2EE metadata handling, and the big one. LINE ships an entire Lua scripting engine for AR effects and profile decoration, and the profile path lets you store Lua that runs when someone views your profile. That's an RCE that has been sitting there for over six years, reachable by getting a victim to view a profile. From there the escalation story writes itself: LINE profiles can be shared, which makes it wormable; a QR code plus a deep link makes it one tap; LINE's E2EE only protects transit, since messages land decrypted in the local DB; and a Linux LPE (he calls them as common as stray dogs) gets you out of the Android sandbox.
 
@@ -234,7 +234,7 @@ The framing carries the talk. He says outright that he can't read assembly ("I o
 
 Vendor response: EOL, no fix, and no firmware or version transparency on the vendor's site at all. The Q&A answer worth keeping for anyone replicating this: "Opus 4.6 is enough."
 
-### Old-School Bug Hunting: A Pure-Logic Zero-Click Sandbox Escape Chain in Microsoft Edge · Orange Tsai
+### ↖乂古法挖洞乂↘ 純邏輯 Microsoft Edge 零點擊沙箱逃逸鏈 · Orange Tsai
 Rating: ★★★★★
 
 The Edge chain from Pwn2Own Berlin 2026: the only successful browser entry that year (one Edge team against two Safari and three Firefox registrations, and only one demo succeeded), the first Chromium-based full chain at Pwn2Own in a decade, no memory corruption anywhere in it, no AI anywhere in it, patched by Microsoft within 24 hours.
