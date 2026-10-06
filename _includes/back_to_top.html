@@ -1,0 +1,15 @@
+<button id="back-to-top" class="back-to-top" type="button" aria-label="回到頂部">↑</button>
+<script>
+  (function () {
+    var btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    var onScroll = function () {
+      btn.classList.toggle('visible', window.scrollY > 600);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+</script>

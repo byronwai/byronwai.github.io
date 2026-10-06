@@ -1,10 +1,14 @@
 ---
-layout: page
-title: "Archives"
-permalink: /archives/
+layout: default
 ---
 
-<div class="archives">
+<div class="home">
+  {{ content }}
+<section class="hero" aria-label="Site intro">
+  <span class="hero-seal" aria-hidden="true">錯</span>
+  <p class="hero-desc">{{ site.description }}</p>
+  <p class="hero-meta">{{ site.posts | size }} 篇文章</p>
+</section>
 {% if site.posts.size > 0 %}
   {% assign current_year = '' %}
   {% for post in site.posts %}
@@ -16,7 +20,7 @@ permalink: /archives/
   {% assign current_year = post_year %}
   {% endif %}
     <li>
-      <span class="post-date">{{ post.date | date: '%Y-%m-%d' }}</span>
+      <span class="post-date">{{ post.date | date: '%m-%d' }}</span>
       <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
       {% if post.tags %}
       <span class="post-tags">

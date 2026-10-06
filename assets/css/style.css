@@ -1,0 +1,1184 @@
+/* ============================================================
+   錯題簿 — "Editorial journal" stylesheet
+   Plain CSS for GitHub Pages (Jekyll 3.9 + kramdown + Rouge).
+   Dark theme by default; light theme applied via
+   [data-theme="light"] on <html>, toggled in the header and
+   persisted in localStorage. No SCSS, no build-time JS.
+   ============================================================ */
+
+/* ---------- Design tokens ---------- */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #191715;
+  --surface: #211e1b;
+  --text: #e8e2d9;
+  --text-soft: #b8b0a4;
+  --muted: #8a8378;
+
+  --accent: #e0684a;
+  --accent-dark: #f0917a;        /* brightened for hover on dark */
+  --accent-soft: #33231e;
+  --accent-border: #4a332c;
+  --accent-contrast: #1c1917;
+
+  --border: #332f2a;
+  --code-inline-bg: #2a2622;
+  --table-head-bg: #2a2622;
+  --table-row-alt: #241f1c;
+  --header-bg: rgba(25, 23, 21, 0.85);
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  --page-glow: radial-gradient(1100px 420px at 50% -80px,
+    rgba(224, 104, 74, 0.08), transparent 70%);
+
+  /* Code blocks are always dark, in both themes. */
+  --code-dark-bg: #1c1917;
+  --code-dark-text: #e7e2da;
+
+  /* The seal stamp keeps its cinnabar ink in both themes. */
+  --seal-bg: #b3402a;
+  --seal-text: #fff7f2;
+
+  --font-serif: "Noto Serif TC", "Source Han Serif TC", "Songti TC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Noto Sans TC",
+    "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", Consolas,
+    "Courier New", monospace;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --text: #292524;
+  --text-soft: #57534e;
+  --muted: #79716b;
+
+  --accent: #b3402a;             /* cinnabar / seal red */
+  --accent-dark: #8f2f1c;        /* hover / pressed */
+  --accent-soft: #f7e9e5;
+  --accent-border: #e5c3ba;
+  --accent-contrast: #ffffff;    /* text sitting on accent fills */
+
+  --border: #e7e2da;
+  --code-inline-bg: #f1ede7;
+  --table-head-bg: #f1ede7;
+  --table-row-alt: #f6f2ec;
+  --header-bg: rgba(250, 248, 245, 0.85);
+  --shadow: 0 2px 10px rgba(41, 37, 36, 0.08);
+  --page-glow: radial-gradient(1100px 420px at 50% -80px,
+    rgba(179, 64, 42, 0.07), transparent 70%);
+}
+
+/* ---------- Base ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-dark);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--accent-border);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Smooth theme switch on the major surfaces. */
+body,
+.site-header,
+.site-footer,
+blockquote,
+pre,
+.highlight,
+table,
+th,
+code,
+.theme-toggle {
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--header-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.site-title a {
+  color: var(--text);
+}
+
+.site-title a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* CSS-only seal stamp before the site title. */
+.seal-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 2px;
+  background: var(--seal-bg);
+  color: var(--seal-text);
+  font-family: var(--font-serif);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.1rem;
+}
+
+.site-nav a {
+  padding: 0.2rem 0.05rem;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.5em;
+}
+
+.site-nav a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent-border);
+}
+
+.site-nav a.active {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration-color: var(--accent);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.15rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* ---------- Main ---------- */
+
+main.site-main {
+  flex: 1;
+  padding-top: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+/* ---------- Year headings ---------- */
+
+.year-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.75rem 0 0.5rem;
+  color: var(--muted);
+  font-size: clamp(1.3rem, 3vw, 1.55rem);
+  font-weight: 600;
+  scroll-margin-top: 5rem;
+}
+
+.year-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.home > .year-heading:first-of-type,
+.archives > .year-heading:first-of-type {
+  margin-top: 0;
+}
+
+/* ---------- Post lists (home, archives, tags) ---------- */
+
+.post-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.post-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.15s ease, border-color 0.25s ease;
+}
+
+.post-list li:last-child {
+  border-bottom: 0;
+}
+
+.post-list li:hover {
+  transform: translateX(2px);
+}
+
+.post-date {
+  flex: none;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.post-link {
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.post-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.post-list .post-tags {
+  margin-left: auto;
+}
+
+/* ---------- Tag pills ---------- */
+
+.post-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag-pill {
+  display: inline-block;
+  padding: 0.08rem 0.6rem;
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.tag-pill:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  text-decoration: none;
+}
+
+/* ---------- Post page ---------- */
+
+.post {
+  /* Slightly narrower reading column for long-form articles. */
+  max-width: 42rem;
+}
+
+.post-header {
+  margin: 0 0 2.25rem;
+}
+
+.post-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.post-meta {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.post-header .post-tags {
+  margin-top: 0.9rem;
+}
+
+/* Short cinnabar rule under the post header. */
+.post-header::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-top: 1.1rem;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.post-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 3rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.post-nav-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  max-width: 48%;
+}
+
+.post-nav-item:last-child {
+  text-align: right;
+}
+
+.post-nav-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.post-nav-title {
+  margin-top: 0.15rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.post-nav-item:hover {
+  text-decoration: none;
+}
+
+.post-nav-item:hover .post-nav-title {
+  color: var(--accent);
+}
+
+/* ---------- Page layout (About, Archives, Tags, 404) ---------- */
+
+.page-title {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.5rem, 3.5vw, 1.9rem);
+  font-weight: 700;
+}
+
+/* ---------- Article typography ---------- */
+
+.post-content,
+.page-content {
+  overflow-wrap: break-word;
+}
+
+.post-content {
+  line-height: 1.85;
+}
+
+.post-content h2,
+.page-content h2 {
+  margin: 2.4rem 0 0.9rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+  font-size: clamp(1.3rem, 3vw, 1.5rem);
+}
+
+.post-content h3,
+.page-content h3 {
+  margin: 1.9rem 0 0.7rem;
+  font-size: 1.2rem;
+}
+
+.post-content h4,
+.page-content h4 {
+  margin: 1.5rem 0 0.6rem;
+  font-size: 1.05rem;
+}
+
+.post-content p,
+.page-content p {
+  margin: 1rem 0;
+}
+
+.post-content ul,
+.post-content ol,
+.page-content ul,
+.page-content ol {
+  margin: 1rem 0;
+  padding-left: 1.6rem;
+}
+
+.post-content li,
+.page-content li {
+  margin: 0.3rem 0;
+}
+
+/* Body links: accent with a quiet underline that thickens on hover. */
+.post-content a,
+.page-content a {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.post-content a:hover,
+.page-content a:hover {
+  color: var(--accent-dark);
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+}
+
+.post-content a:has(> img) {
+  display: block;
+  text-decoration: none;
+}
+
+.post-content sup a {
+  padding: 0 0.1em;
+  text-decoration: none;
+}
+
+/* hr as a centered three-dot ornament. */
+.post-content hr,
+.page-content hr {
+  margin: 2.5rem 0;
+  border: 0;
+  text-align: center;
+}
+
+.post-content hr::after,
+.page-content hr::after {
+  content: "· · ·";
+  display: block;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+.post-content img,
+.page-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+/* ---------- kramdown footnotes ---------- */
+
+.footnotes {
+  margin-top: 2.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* kramdown emits a plain <hr> inside the footnotes wrapper;
+   the wrapper's top border is the divider, so drop it. */
+.footnotes hr {
+  display: none;
+}
+
+.footnotes ol {
+  margin: 0;
+  padding-left: 1.4rem;
+}
+
+.footnotes li {
+  margin: 0.35rem 0;
+}
+
+.footnotes p {
+  margin: 0.2rem 0;
+}
+
+/* ---------- Blockquotes ---------- */
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.6rem 1.1rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  background: var(--accent-soft);
+  color: var(--text-soft);
+}
+
+blockquote p {
+  margin: 0.5rem 0;
+}
+
+/* ---------- Code ---------- */
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+code {
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: var(--code-inline-bg);
+  font-size: 0.875em;
+}
+
+pre {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  background: var(--code-dark-bg);
+  color: var(--code-dark-text);
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+pre code {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+
+.highlight {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  background: var(--code-dark-bg);
+  overflow-x: auto;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: transparent;
+  overflow-x: visible;
+}
+
+.highlight code {
+  color: var(--code-dark-text);
+}
+
+/* Bare `figure.highlight` / `code.language-*` fallbacks. */
+
+figure.highlight {
+  margin: 1.5rem 0;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: var(--font-mono);
+}
+
+/* Rouge token colors — warm palette on the always-dark block. */
+
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs,
+.highlight .cd,
+.highlight .cp,
+.highlight .ge {
+  color: #8a8378;
+  font-style: italic;
+}
+
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kv,
+.highlight .ow {
+  color: #e08b8b;
+}
+
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sr,
+.highlight .ss,
+.highlight .sx,
+.highlight .dl {
+  color: #a8c49a;
+}
+
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .ml,
+.highlight .mo,
+.highlight .mx,
+.highlight .il {
+  color: #e0965c;
+}
+
+.highlight .nf,
+.highlight .fm,
+.highlight .nc,
+.highlight .nn,
+.highlight .ne {
+  color: #d9b46a;
+}
+
+.highlight .n,
+.highlight .na,
+.highlight .nb,
+.highlight .nd,
+.highlight .ni,
+.highlight .nl,
+.highlight .no,
+.highlight .nt,
+.highlight .nv,
+.highlight .nx,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.highlight .vm,
+.highlight .bp {
+  color: #cfc7bc;
+}
+
+.highlight .o,
+.highlight .p {
+  color: #a8a196;
+}
+
+.highlight .err,
+.highlight .gd,
+.highlight .gt {
+  color: #e0684a;
+}
+
+.highlight .gi {
+  color: #a8c49a;
+}
+
+.highlight .gh {
+  color: #d9b46a;
+}
+
+.highlight .gu {
+  color: #d9b46a;
+  font-weight: 600;
+}
+
+.highlight .gs {
+  font-weight: 600;
+}
+
+.highlight .lineno {
+  color: #6b655c;
+}
+
+.highlight .w {
+  color: #6b655c;
+}
+
+/* ---------- Tables ---------- */
+
+table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.85rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--table-head-bg);
+  font-weight: 600;
+}
+
+/* ---------- Tags page ---------- */
+
+.tag-section {
+  margin-bottom: 2.25rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tag-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.tag-heading {
+  margin: 0 0 0.6rem;
+  color: var(--accent);
+  font-size: 1.2rem;
+  font-weight: 600;
+  scroll-margin-top: 5rem;
+}
+
+.tag-count {
+  display: inline-block;
+  min-width: 1.7em;
+  margin-left: 0.4rem;
+  padding: 0 0.45em;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.7;
+  text-align: center;
+  vertical-align: 2px;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0.25rem 0;
+}
+
+.site-footer a {
+  color: var(--muted);
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+.footer-sep {
+  margin: 0 0.4rem;
+  color: var(--border);
+}
+
+/* ---------- 404 ---------- */
+
+.notfound-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.7rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
+
+  .site-header .wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .site-nav {
+    gap: 0.9rem;
+  }
+
+  .post-nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .post-nav-item {
+    max-width: 100%;
+  }
+
+  .post-nav-item:last-child {
+    text-align: left;
+  }
+}
+
+/* ---------- Motion & print ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body,
+  .site-header,
+  .site-footer,
+  blockquote,
+  pre,
+  .highlight,
+  table,
+  th,
+  code,
+  .theme-toggle,
+  .post-list li {
+    transition: none;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .post-nav,
+  .theme-toggle,
+  .back-to-top,
+  .hero {
+    display: none;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .post-content a,
+  .page-content a {
+    color: #000000;
+  }
+
+  pre,
+  .highlight {
+    border: 1px solid #cccccc;
+  }
+}
+
+/* ============================================================
+   Polish pass
+   ============================================================ */
+
+/* Faint cinnabar glow at the top of the page, per theme. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 480px;
+  background: var(--page-glow);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Gentle rise-in for the main column on every page. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+main.site-main {
+  animation: rise-in 0.45s ease both;
+}
+
+/* ---------- Homepage masthead ---------- */
+
+.hero {
+  margin: 1.5rem 0 3rem;
+  padding: 1.25rem 0 2rem;
+  text-align: center;
+}
+
+.hero-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 6px;
+  background: var(--seal-bg);
+  color: var(--seal-text);
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-4deg);
+  box-shadow: 0 3px 14px rgba(179, 64, 42, 0.35);
+  user-select: none;
+}
+
+.hero-desc {
+  max-width: 34rem;
+  margin: 1.15rem auto 0;
+  color: var(--text-soft);
+  font-size: 1.02rem;
+}
+
+.hero-meta {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- Post list hover accent ---------- */
+
+.post-list li {
+  position: relative;
+  padding: 0.75rem 0 0.75rem 0.95rem;
+}
+
+.post-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.post-list li:hover::before {
+  opacity: 1;
+}
+
+.post-list .post-date {
+  min-width: 5.5ch;
+}
+
+/* ---------- Back to top ---------- */
+
+.back-to-top {
+  position: fixed;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease,
+    background-color 0.25s ease, border-color 0.25s ease,
+    color 0.25s ease;
+  box-shadow: var(--shadow);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.back-to-top:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* ---------- Article polish ---------- */
+
+/* Images lift very slightly on hover. */
+.post-content img,
+.page-content img {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.post-content img:hover,
+.page-content img:hover {
+  transform: translateY(-2px);
+}
+
+/* Code blocks get a hairline and a faint inner sheen. */
+.highlight,
+pre {
+  border: 1px solid rgba(232, 226, 218, 0.08);
+  box-shadow: inset 0 1px 0 rgba(232, 226, 218, 0.04);
+}
+
+/* Zebra striping on data tables. */
+tbody tr:nth-child(even) td {
+  background: var(--table-row-alt);
+}
+
+/* Blockquote marker ornament. */
+blockquote {
+  position: relative;
+}
+
+/* ---------- 404 ---------- */
+
+.notfound-title {
+  position: relative;
+  font-size: 2.1rem;
+}
+
+.page .notfound-title::before {
+  content: "錯";
+  position: absolute;
+  top: -0.9rem;
+  left: -0.4rem;
+  z-index: -1;
+  color: var(--accent);
+  opacity: 0.12;
+  font-family: var(--font-serif);
+  font-size: 11rem;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ---------- Motion guard for the new effects ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  main.site-main {
+    animation: none;
+  }
+
+  .back-to-top {
+    transition: none;
+  }
+
+  .post-content img,
+  .page-content img {
+    transition: none;
+  }
+
+  .post-content img:hover,
+  .page-content img:hover {
+    transform: none;
+  }
+}
