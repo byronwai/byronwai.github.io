@@ -58,8 +58,6 @@ PM 就是一個要負責大量事情的 Role，對內就要負責睇 Project 進
 
 結果好多時 PM 就兩邊不是人，仲未計要直接面對其他人嘅情緒。如果無 CTF involve (join CTF, challenge dev, etc.) 經驗就更加難掌握自己 team 嘅實際處境。所以我會認為 PM 未必係需要一個好強嘅 CTF player，但是需要有 domain knowledge 去理解 project 細節。
 
----
-
 ### Challenge Author
 
 Challenge author 嘅能力直接決定咗題目嘅難度同所需知識嘅廣闊程度。Challenge author 通常有唔同強項，所以會集中寫自己最熟悉嘅 category 嘅題目。例如 Pwner 理所當然地會 dev 得最多 pwn challenge。
