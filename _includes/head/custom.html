@@ -1,0 +1,104 @@
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/favicon.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/apple-touch-icon.png' | relative_url }}">
+
+<style>
+  /* --- Terminal hero on the home page --- */
+  .hero {
+    margin: 0 0 2.5rem;
+  }
+
+  .term {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    background: #0a0f1c;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+  }
+
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .term-bar span.dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+  }
+
+  .term-bar .dot:nth-child(1) { background: #f87171; }
+  .term-bar .dot:nth-child(2) { background: #fbbf24; }
+  .term-bar .dot:nth-child(3) { background: #4ade80; }
+
+  .term-title {
+    margin-left: auto;
+    color: #8a93a5;
+    font-family: ui-monospace, "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .term-body {
+    padding: 1.1rem 1.25rem 1.25rem;
+    color: #d7e2f0;
+    font-family: ui-monospace, "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.9;
+  }
+
+  .term-line {
+    margin: 0;
+    overflow-wrap: break-word;
+  }
+
+  .term-line .prompt {
+    margin-right: 0.55em;
+    color: #4ade80;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .term-line.term-out {
+    color: #9fb0c8;
+  }
+
+  .term-line.term-out::before {
+    content: "";
+    display: inline-block;
+    width: 1.1em;
+  }
+
+  .term-line del {
+    color: #64748b;
+    text-decoration-thickness: 2px;
+  }
+
+  .cursor {
+    display: inline-block;
+    margin-left: 0.15em;
+    color: #22d3ee;
+    animation: hero-blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes hero-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .term-body {
+      font-size: 0.8rem;
+    }
+  }
+</style>

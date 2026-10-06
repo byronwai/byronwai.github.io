@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "DEFCON 852 - BadUSB and Other Blindspots Workshop"
 date: 2025-07-31 12:00:00 +0000
 slug: "DEFCON-852-BadUSB-and-Other-Blindspots-Workshop"

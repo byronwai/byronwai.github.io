@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "DFIR at Machine Speed Workshop Review"
 date: 2026-09-30 12:00:00 +0000
 slug: "DFIR-at-Machine-Speed-Workshop-Review"

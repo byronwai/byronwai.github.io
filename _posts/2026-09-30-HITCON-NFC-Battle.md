@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Hacking the HITCON NFC Battle"
 date: 2026-09-30 12:00:00 +0000
 slug: "HITCON-NFC-Battle"

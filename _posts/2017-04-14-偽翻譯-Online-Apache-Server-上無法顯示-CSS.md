@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "[偽翻譯] Online Apache Server 上無法顯示 CSS"
 date: 2017-04-14 02:27:26 +0000
 slug: "偽翻譯-Online-Apache-Server-上無法顯示-CSS"

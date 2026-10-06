@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "金庸群俠傳 reverse vol 3 - Static Analysis"
 date: 2024-10-31 12:00:00 +0000
 slug: "金庸群俠傳-reverse-vol-3-Static-Analysis"

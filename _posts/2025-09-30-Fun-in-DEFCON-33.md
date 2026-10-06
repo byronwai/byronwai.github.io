@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Fun in DEFCON 33"
 date: 2025-09-30 12:00:00 +0000
 slug: "Fun-in-DEFCON-33"

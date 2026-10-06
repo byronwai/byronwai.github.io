@@ -1,11 +1,12 @@
-# Site configuration for 從零開始的編程生活
-# Built with GitHub Pages' native Jekyll (3.9.x) — no custom plugins beyond jekyll-feed.
+# Site configuration for 錯題簿
+# Theme: Minimal Mistakes via jekyll-remote-theme (GitHub Pages compatible).
 
 title: 錯題簿
 description: Byron Wai 的部落格，記錄編程與日常生活。
-author: Byron Wai
-lang: zh-Hant
+author:
+  name: GonJK
 
+locale: en-US
 url: "https://byronwai.github.io"
 baseurl: ""
 
@@ -15,8 +16,39 @@ markdown: kramdown
 highlighter: rouge
 permalink: /:year/:month/:day/:title/
 
+remote_theme: mmistakes/minimal-mistakes
+minimal_mistakes_skin: dark
+
+search: true
+
+paginate: 10
+paginate_path: /page:num/
+
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-paginate
+
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      share: false
+      related: false
+      show_date: true
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: false
 
 exclude:
   - README.md

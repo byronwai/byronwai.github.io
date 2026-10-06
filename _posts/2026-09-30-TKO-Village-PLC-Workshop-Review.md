@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "TKO Village PLC Workshop Review"
 date: 2026-09-30 12:00:00 +0000
 slug: "TKO-Village-PLC-Workshop-Review"

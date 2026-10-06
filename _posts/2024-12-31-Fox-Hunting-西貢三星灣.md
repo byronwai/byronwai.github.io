@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Fox Hunting @ 西貢三星灣"
 date: 2024-12-31 12:00:00 +0000
 slug: "Fox-Hunting-西貢三星灣"

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "FlipperZero 推坑簡介之 NFC (v3)"
 date: 2024-03-31 12:00:00 +0000
 slug: "FlipperZero-推坑簡介之-NFC-v3"

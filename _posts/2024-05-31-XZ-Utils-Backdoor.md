@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "XZ Utils Backdoor"
 date: 2024-05-31 12:00:00 +0000
 slug: "XZ-Utils-Backdoor"

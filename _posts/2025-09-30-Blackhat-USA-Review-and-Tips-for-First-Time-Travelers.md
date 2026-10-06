@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Blackhat USA - Review and Tips for First-Time Travelers"
 date: 2025-09-30 12:00:00 +0000
 slug: "Blackhat-USA-Review-and-Tips-for-First-Time-Travelers"

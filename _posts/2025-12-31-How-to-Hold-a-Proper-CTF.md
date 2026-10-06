@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "How to Hold a Proper CTF"
 date: 2025-12-31 12:00:00 +0000
 slug: "How-to-Hold-a-Proper-CTF"

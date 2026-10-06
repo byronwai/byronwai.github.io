@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "FlipperZero 推坑簡介之 Infrared"
 date: 2024-05-31 12:00:00 +0000
 slug: "FlipperZero-推坑簡介之-Infrared"

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "ONIST to hack Kiosk"
 date: 2024-10-31 12:00:00 +0000
 slug: "ONIST-to-hack-Kiosk"

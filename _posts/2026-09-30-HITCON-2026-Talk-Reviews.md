@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "HITCON 2026 Talk Reviews"
 date: 2026-09-30 12:00:00 +0000
 slug: "HITCON-2026-Talk-Reviews"

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "SINCON 2024 Recollections"
 date: 2024-07-31 12:00:00 +0000
 slug: "SINCON-2024-Recollections"

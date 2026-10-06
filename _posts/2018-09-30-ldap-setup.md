@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "LDAP Setup"
 date: 2018-09-30 15:11:23 +0000
 slug: "ldap-setup"

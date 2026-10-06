@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "金庸群俠傳 reverse vol 1"
 date: 2024-01-31 12:00:00 +0000
 slug: "金庸群俠傳-reverse-vol-1"

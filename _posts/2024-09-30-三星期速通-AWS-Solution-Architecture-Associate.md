@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "三星期速通 AWS Solution Architecture Associate"
 date: 2024-09-30 12:00:00 +0000
 slug: "三星期速通-AWS-Solution-Architecture-Associate"

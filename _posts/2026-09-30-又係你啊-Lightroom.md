@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "又係你啊 Lightroom"
 date: 2026-09-30 12:00:00 +0000
 slug: "又係你啊-Lightroom"

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "noVNC with clipboard"
 date: 2022-11-14 12:00:00 +0000
 slug: "novnc-with-clipboard"

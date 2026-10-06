@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "[新手向] 免費Telegram bot 之 server前期設置"
 date: 2017-01-19 15:11:23 +0000
 slug: "新手向-免費Telegram-bot-之-server前期設置-1"

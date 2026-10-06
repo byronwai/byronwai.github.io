@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "金庸群俠傳 reverse vol 4 - Dynamic Analysis"
 date: 2025-03-31 12:00:00 +0000
 slug: "金庸群俠傳-reverse-vol-4-Dynamic-Analysis"
