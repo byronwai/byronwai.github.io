@@ -39,45 +39,30 @@ The whole thing is open source: the app, the backend API spec (`Backend/openapi.
 7. **Redeem prizes.** Staff scan your tag; UID must match your account; each of `STAMP` / `RANKING` / `EXTERNAL` claims once.
 8. **Print your card.** Design a face in the pixel editor, submit, get a Code 128 barcode, and the souvenir booth prints a CR80 PVC card — whose *own* NTAG staff can then pair to your account as a replacement badge.
 
-```mermaid
-flowchart TD
-    A[Install app + SSO/KKTIX login] --> B[JWT issued<br/>role: ATTENDEE/STAFF/SPONSOR]
-    B --> C[Profile auto-created<br/>app receives 6-byte nfc_tag_key]
-    C --> D[Pair badge NTAG sticker<br/>write URL + AAR, lock read-only]
-    D --> E{Meet another attendee}
-    E -->|Tap phone to their tag| F[POST /collection/scan<br/>server checks UID maps to user]
-    F --> G[Card added to collection<br/>+10 pts, see full profile]
-    E -->|Someone opens a shared link| H[POST /collection/phishing<br/>victim docked -10 pts]
-    D --> I[Tap sponsor booth tag]
-    I --> J[+1 stamp, 20 stamps = STAMP prize]
-    G --> K[Live scoreboard ~10s snapshots<br/>freeze at cutoff]
-    J --> K
-    K --> L[Staff scan tag UID<br/>claim STAMP / RANKING / EXTERNAL]
-    C --> M[Design card in pixel editor]
-    M --> N[Submit print order<br/>Code 128 barcode]
-    N --> O[Booth prints real CR80 PVC card<br/>staff pair card NTAG to account]
-    O --> D
+```text
+Install app + SSO/KKTIX login (JWT, 6-byte nfc_tag_key)
+  -> pair badge NTAG (write URL + AAR, lock read-only)
+  -> meet another attendee:
+       tap their tag -> POST /collection/scan (UID must map
+       to the user) -> card collected, +10
+       click a shared link -> POST /collection/phishing,
+       the opener is docked -10
+  -> sponsor booth tag: +1 stamp (20 stamps = prize)
+  -> live scoreboard (~10s snapshots, frozen at cutoff)
+  -> staff scans your tag to claim STAMP / RANKING / EXTERNAL
+  -> print a real PVC card; its NTAG pairs as a replacement badge
 ```
 
 The tap itself, as a sequence:
 
-```mermaid
-sequenceDiagram
-    participant A as Scanner's phone
-    participant T as Victim's badge NTAG
-    participant S as nfc-battle API
-
-    A->>T: NFC field, read NDEF
-    T-->>A: https://game.hitcon2026.online/b?u=victim_id
-    A->>T: read physical UID (7-byte)
-    Note over A: Deep link opens app,<br/>NFC session controller detects<br/>genuine tag contact
-    A->>S: POST /collection/scan<br/>{tag_uid, victim_id}
-    S->>S: Verify UID is really<br/>paired to victim_id
-    alt UID matches
-        S-->>A: victim profile + collection<br/>bumped, +10 score
-    else UID unknown / mismatch
-        S-->>A: rejected (no score)
-    end
+```text
+Scanner's phone -- NFC field --> victim's badge NTAG
+badge            -- NDEF: https://game.hitcon2026.online/b?u=<id>
+phone            -- reads the physical UID (7 bytes)
+phone            -- POST /collection/scan {tag_uid, victim_id}
+server           -- is the UID really paired to victim_id?
+                      yes -> profile returned, collection bumped, +10
+                      no/mismatch -> rejected, no score
 ```
 
 ## 3. Feature tour
@@ -109,51 +94,40 @@ sequenceDiagram
 
 **Booth station (`CardPrinter/`).** Docker-on-Windows, port 18080, pure Python 3.12 stdlib, zero pip installs. Staff scan your Code 128 barcode (browser `BarcodeDetector` → ZXing fallback → manual 8–32 char token → or an old Android phone as a USB scanner over ADB on a restricted port 18081), then a **STAFF JWT** (page memory only) fetches `GET /staff/print-cards/{token}`. The service **re-renders nothing** — it swaps `word/media/image1.png` inside a Word `.docx` calibration template (54.89 × 86 mm, sub-millimeter offsets, rounded corners; SHA-256-verified at startup). Staff print from Word at "original page size / 100%" with scaling disabled, out comes the card from an **Evolis Primacy**. The printed card's own NTAG then gets paired to your account.
 
-```mermaid
-flowchart LR
-    A[48×48 pixel grid<br/>card editor] --> B[RepaintBoundary re-render<br/>1276×2022 px, 600 DPI CR80]
-    B --> C[POST /print-cards<br/>PNG ≤ 4 MiB → object storage]
-    C --> D[Short token → Code 128 barcode<br/>shown in app]
-    D --> E[Booth: staff scan barcode<br/>camera / ZXing / ADB phone]
-    E --> F[STAFF JWT: GET /staff/print-cards/token]
-    F --> G[Swap image1.png inside<br/>SHA-256-verified docx template]
-    G --> H[Word print at 100%<br/>Evolis Primacy → PVC card]
-    H --> I[Staff pair card NTAG<br/>POST /staff/pair_user_tag]
+```text
+48x48 pixel-grid card editor
+  -> RepaintBoundary re-render: 1276x2022 px, 600 DPI CR80
+  -> POST /print-cards (PNG <= 4 MiB -> object storage)
+  -> short token, shown as a Code 128 barcode
+  -> booth staff scan the barcode (camera / ZXing / ADB phone)
+  -> STAFF JWT: GET /staff/print-cards/{token}
+  -> swap image1.png inside the SHA-256-verified docx template
+  -> Word prints at 100% -> Evolis Primacy -> PVC card
+  -> staff pair the card's NTAG (POST /staff/pair_user_tag)
 ```
 
 ## 5. How to hack it — the attack surface and the workflows
 
 One pattern repeats across this entire codebase: **the server validates sizes and identities; the client validates aesthetics.** Anything that's a matter of taste — resolution, emoji count, colors, link hygiene — is only checked in Dart, which is to say, not really checked at all. Anything that touches score or identity is checked server-side and mostly holds.
 
-```mermaid
-flowchart LR
-    YOU[You, an attendee with a badge sticker] --> PHONE[Your phone]
-    YOU --> TAG[Your NTAG sticker]
-    YOU --> BOOTH[Print booth + staff]
-
-    subgraph CLIENT[On your device - you own it]
-        PHONE --> A1[48x48 editor - client-side only]
-        PHONE --> A2[APK assets - avatars are just PNGs]
-        PHONE --> A3[JWT in secure storage<br/>legacy plaintext copy possible]
-        PHONE --> A4[Local profile / collection prefs]
-    end
-
-    subgraph NETWORK[On the wire - no pinning, plain Bearer]
-        PHONE --> B1[PATCH /users/me<br/>avatar: any PNG ≤ 256 KiB<br/>no resolution check]
-        PHONE --> B2[Bio text field<br/>codec channel]
-        PHONE --> B3[POST /print-cards<br/>any PNG ≤ 4 MiB]
-    end
-
-    subgraph RF[Over the air]
-        TAG --> C1[PWD_AUTH is cleartext 32-bit<br/>sniffable]
-        TAG --> C2[UID clonable with magic tags<br/>but server checks UID↔user]
-    end
-
-    subgraph DEADENDS[Tried and rejected]
-        D1[URL forgery]
-        D2[Forged STAFF JWT]
-        D3[Redirect API to your server]
-    end
+```text
+You, an attendee with a badge sticker
+  |- your phone (you own it)
+  |    |- 48x48 editor -- client-side only
+  |    |- APK assets -- avatars are just PNGs
+  |    |- JWT in secure storage (legacy plaintext copy possible)
+  |    `- local profile / collection prefs
+  |- on the wire (no pinning, plain Bearer)
+  |    |- PATCH /users/me -- avatar: any PNG <= 256 KiB, no res check
+  |    |- bio text field -- the codec channel
+  |    `- POST /print-cards -- any PNG <= 4 MiB
+  |- over the air
+  |    |- PWD_AUTH is cleartext 32-bit -- sniffable
+  |    `- UID clonable with magic tags (server checks UID<->user)
+  `- tried and rejected
+       |- URL forgery
+       |- forged STAFF JWT
+       `- redirecting the API to your own server
 ```
 
 ### 5.1 Workflow 0 — Get your token (the foundation)
@@ -187,14 +161,15 @@ curl -X PATCH https://nfc-battle-api.hitcon2026.online/users/me \
 
 Pick a resolution that scales cleanly (480×480, 960×960, 1024×1024) so nearest-neighbor doesn't alias. Then go stand in a queue — the payoff is every single person who scans you seeing the crispest card in the building, at 600 DPI on the printed card too.
 
-```mermaid
-flowchart TD
-    A[Default avatar 48×48 PNG<br/>or gallery photo] --> B[Editor: downsample to 48×48 grid]
-    B --> C[512 px PNG → base64<br/>PATCH /users/me]
-    C --> D[Everyone's card renderer:<br/>Image.memory native res]
-    E[Attacker: curl / Burp / reFlutter] --> F[PATCH /users/me with custom PNG<br/>any resolution, ≤ 256 KiB]
-    F --> D
-    D --> G[Crisp hi-res avatar in app<br/>and on 600 DPI printed card]
+```text
+Default 48x48 avatar or gallery photo
+  -> editor downsamples to the 48x48 grid
+  -> 512 px PNG -> base64 -> PATCH /users/me
+
+Attacker: curl / Burp / reFlutter
+  -> PATCH /users/me with a custom PNG, any resolution <= 256 KiB
+  -> everyone's card renderer (Image.memory, native resolution)
+  -> crisp hi-res avatar in the app and on the 600 DPI print
 ```
 
 ### 5.3 Workflow 2 — Emoji wall, alien colors, glitch names
@@ -289,22 +264,14 @@ The editor is a 48×48 black-and-white grid if you want it to be — and a **QR 
 
 Here's the thing about the score formula: points go to the **scanner**, and the scanner is just *whoever's phone is holding the JWT*. Nothing in the spec ties an account to one device. So: sign the app in on your spare phone, hand it to a friend, and now **two scanners farm the crowd in parallel for one scoreboard slot**. Rate limit is 10 scans/min *per user* — two phones double your effective throughput up to that cap. Reasoned from the API spec rather than tested live, but there's no visible mechanism that stops it. Denny walked the ice-cream queue solo; imagine the queue with a wingman.
 
-```mermaid
-sequenceDiagram
-    participant F as Friend with your<br/>signed-in spare phone
-    participant V1 as Attendee A's badge
-    participant V2 as Attendee B's badge
-    participant S as nfc-battle API
+```text
+Friend holds your signed-in spare phone.
+  tap attendee A's badge -> POST /collection/scan -> +10 to you
+  tap attendee B's badge -> POST /collection/scan -> +10 to you
 
-    F->>V1: tap
-    V1-->>F: u=A
-    F->>S: POST /collection/scan (Bearer: YOUR JWT)
-    S-->>F: +10 → your account
-    Note over F,S: Meanwhile you are elsewhere<br/>scanning with your own phone
-    F->>V2: tap
-    V2-->>F: u=B
-    F->>S: POST /collection/scan (Bearer: YOUR JWT)
-    S-->>F: +10 → your account again
+You are elsewhere scanning with your own phone the whole time.
+The rate limit (10 scans/min per user) is shared across both
+phones, so two phones double your throughput up to that cap.
 ```
 
 ### 6.3 The photo-mosaic avatar (zero hacks required)

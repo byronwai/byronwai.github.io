@@ -38,12 +38,14 @@ Takeaways that stuck with me: "spec ≠ safe" (working as intended can still vio
 
 The core claim as a flow. Every defense on the right side of this diagram belongs to the model, and the attack never gets there:
 
-```mermaid
-flowchart LR
-    A["Open a folder or run one command"] --> B["Agent tooling parses config, hooks and aliases"]
-    B --> C["Code runs before the first prompt"]
-    C --> D["RCE"]
-    E["Guardrails, prompt injection defenses, alignment"] -. "model never sees the input" .-> D
+```text
+Open a folder or run one command
+  -> agent tooling parses config, hooks and aliases
+  -> code runs before the first prompt
+  -> RCE
+
+(guardrails, prompt-injection defenses, alignment are on the model
+ side -- the chain fires before the model ever sees the input)
 ```
 
 ### Endpoint Audit Agent: Scaling AppSec with AI at Dropbox · Po-Ning Tseng
@@ -75,16 +77,16 @@ The actual idea: stop auditing AFD as a single driver. Treat the transport layer
 
 The stack he audits, redrawn from the slide. The method is to walk permutations across this whole box instead of auditing one driver:
 
-```mermaid
-flowchart TD
-    APP["Application, user space"] --> AFD["AFD.sys, kernel"]
-    AFD --> TCP["TCP"]
-    AFD --> AFU["AF_UNIX"]
-    AFD --> HVS["Hyper-V socket"]
-    AFD --> VSO["VSock"]
-    TCP --> TI["tcpip.sys"]
-    HVS --> HS["hvsocket.sys"]
-    AFU --> AU["afunix.sys"]
+```text
+Application (user space)
+  -> AFD.sys (kernel)
+       -> TCP            -> tcpip.sys
+       -> AF_UNIX        -> afunix.sys
+       -> Hyper-V socket -> hvsocket.sys
+       -> VSock
+
+Walk the permutations across the whole box instead of
+auditing one driver.
 ```
 
 ![IMG_0217](https://hackmd.io/_uploads/SJ0YH899Mg.jpg)
@@ -103,12 +105,10 @@ Facts first. The KAIST team catalogued 71 cheating actions from production agent
 
 How the rig is supposed to remove the answer key from the room:
 
-```mermaid
-flowchart LR
-    AG["CTF agent"] --> MCP["MCP server"]
-    MCP --> PX["Submission proxy"]
-    PX --> CT["Live, unreleased CTFd instance"]
-    CT --> FL["Real flags, no public answer key"]
+```text
+CTF agent -> MCP server -> submission proxy
+          -> live, unreleased CTFd instance
+          -> real flags, no public answer key
 ```
 
 ![IMG_0236](https://hackmd.io/_uploads/r1uiS85cze.jpg)
@@ -130,15 +130,14 @@ The case studies came through my audio fine. An MQTT ACL bypass on a Taobao devi
 
 The MQTT trick in three steps, as shown on the slide. The broker publishes the will message with its own authority, so the ACL that kept the client quiet never applies:
 
-```mermaid
-sequenceDiagram
-    participant C as Client with no publish rights
-    participant B as MQTT broker
-    C->>B: CONNECT with Will Flag = 1
-    C->>B: Set crafted Will Message
-    C--xB: Disconnect abruptly
-    B->>B: Publishes Will Message under the broker's own ACL
-    Note over B: Message lands where the client never had publish permission
+```text
+1. Client (has no publish rights) connects with Will Flag = 1
+2. Client sets a crafted Will Message
+3. Client disconnects abruptly
+4. Broker publishes the Will Message under its own authority
+
+The message lands where the client never had publish
+permission.
 ```
 
 The guardrails section is the part I keep quoting in conversations: guardrails reduce failure rates, they are not a fix. Advisory guardrails (prompting) versus enforced guardrails (checks), and enforced ones are hard to define for open-ended bug hunting. On scaling, his toolkit: represent bugs as a graph with capability tags (what a bug provides, what it requires), re-seed the tags at the top of the context window to fight drift, and force subagents to answer through a return contract so the orchestrator doesn't get garbage back.
@@ -161,15 +160,15 @@ The findings, in order: a chat DoS from a one-byte overflow in libandromeda.so (
 
 The full chain end to end:
 
-```mermaid
-flowchart LR
-    QR["QR code"] --> DL["Deep link, one tap"]
-    DL --> PF["Victim views attacker profile"]
-    PF --> LU["Stored Lua effect runs"]
-    LU --> RC["RCE in LINE client, six years old"]
-    RC --> SH["Profile sharing carries it to friends"]
-    RC --> DB["Read decrypted local DB"]
-    RC --> LP["Linux LPE out of the sandbox"]
+```text
+QR code
+  -> deep link, one tap
+  -> victim views the attacker profile
+  -> stored Lua effect runs
+  -> RCE in the LINE client (six years old)
+       -> profile sharing carries it to friends (wormable)
+       -> read the decrypted local DB
+       -> Linux LPE out of the sandbox
 ```
 
 The transcript shows how the AI agent fit into the workflow: "the agent will say: there is a base64 here... the problem is probably this unchecked error", with the human verifying each step. That part is a realistic picture of what agents are currently good for in vuln research.
@@ -189,14 +188,15 @@ The pipeline: event log to a user-host graph (this is also what cuts the token c
 
 The pipeline with both human gates:
 
-```mermaid
-flowchart TD
-    LG["Windows auth event logs, about 400k tokens"] --> GR["Graph modeling: user-host graph"]
-    GR --> FE["Feature extraction: PageRank centrality, HMM transitions"]
-    A1["Analyst reviews and edits the plan"] --> AG
-    FE --> AG["LLM agent loop: Plan, Query, Execute, Analyze, Decide"]
-    AG --> A2["Analyst review before release"]
-    A2 --> RP["Final report"]
+```text
+Windows auth event logs (~400k tokens)
+  -> graph modeling: user-host graph
+  -> feature extraction: PageRank centrality, HMM transitions
+  -> LLM agent loop: Plan, Query, Execute, Analyze, Decide
+  -> final report
+
+Analyst gate 1: reviews and edits the plan before queries run
+Analyst gate 2: reviews again before the report is finalized
 ```
 
 ![IMG_0398](https://hackmd.io/_uploads/H17xIU9qfl.jpg)
@@ -215,15 +215,15 @@ The setup: a PCI-certified payment terminal, hardware-signed binaries, anti-tamp
 
 The whole chain, WiFi to root with no interaction:
 
-```mermaid
-flowchart TD
-    WF["WiFi captive portal"] --> XC["XCB, ADB with auth stripped"]
-    XC --> FM["Confuse security level with debug level"]
-    FM --> SK["Ship .so instead of ELF, RSA-2048 check skipped"]
-    SK --> LA["libarchive read_extract, no O_NOFOLLOW"]
-    LA --> SY["Symlink into /usr/bin"]
-    SY --> RT["root"]
-    RT --> GM["Snake and Tetris"]
+```text
+WiFi captive portal
+  -> XCB: ADB with auth stripped
+  -> confuse security level with debug level
+  -> ship .so instead of ELF -- RSA-2048 check skipped
+  -> libarchive read_extract with no O_NOFOLLOW
+  -> symlink into /usr/bin
+  -> root
+  -> Snake and Tetris
 ```
 ![IMG_0419](https://hackmd.io/_uploads/Hy0X8IqcMx.jpg)
 ![IMG_0420](https://hackmd.io/_uploads/BywML8qcfe.jpg)
@@ -246,21 +246,18 @@ Then the chain itself, and my transcript caught most of it. Navigation throttles
 
 The chain as he told it:
 
-```mermaid
-flowchart TD
-    TH["Navigation throttle loses track of the current tab"] --> SP["Staged switch_profile value plus timing"]
-    SP --> UX["Universal XSS"]
-    UX --> C1["no-opener check via window.open to login.live.com"]
-    UX --> C2["popup blocker via about:blank#quickAuthPopup"]
-    UX --> C3["profile email via MSN CORS misconfiguration"]
-    C1 --> ED["Privileged edge:// pages"]
-    C2 --> ED
-    C3 --> ED
-    ED --> RD["read:// scheme escapes the javascript: URL blacklist"]
-    RD --> ZP["zipdiagnosticlogfiles traversal with ../ and NUL"]
-    ZP --> SF["Write into the Startup folder"]
-    SF -. "write denied" .-> TE2["JSON settings file pointing at telnet://"]
-    TE2 --> TE["telnet.exe launches"]
+```text
+Navigation throttle loses track of the current tab
+  -> staged switch_profile value plus timing -> universal XSS
+       -> no-opener check bypassed via window.open -> login.live.com
+       -> popup blocker bypassed via about:blank#quickAuthPopup
+       -> profile email leaked via MSN CORS misconfiguration
+  -> privileged edge:// pages
+  -> read:// scheme escapes the javascript: URL blacklist
+  -> zipdiagnosticlogfiles traversal with ../ and NUL truncation
+  -> write into the Startup folder
+       -> when write perms fight back: JSON settings file
+          pointing at telnet:// -> telnet.exe launches
 ```
 
 The last ten minutes are the part people will clip. In his words, repetitive labor is now worthless because AI does it, so the remaining value is finding attack surfaces nobody has explored. He deliberately didn't use AI on this chain, partly to keep the exploration to himself, and partly because not using AI sounds cool, and when he's old he can tell young people the story. Side quest in progress: everyone tries to pop calc from the browser, so he's trying to pop the browser from calc, with a calc.exe overflow chain already submitted somewhere for the end of the year.
