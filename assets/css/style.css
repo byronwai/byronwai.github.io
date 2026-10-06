@@ -1294,3 +1294,9 @@ main.site-main {
     border: 1px solid #cccccc;
   }
 }
+
+/* Strikethrough output in the terminal hero. */
+.term-line del {
+  color: var(--muted);
+  text-decoration-thickness: 2px;
+}
