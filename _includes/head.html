@@ -28,3 +28,26 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+
+<!-- Google tag (gtag.js) — GA4 -->
+{% if site.google-analytics and site.google-analytics.id %}
+<script>
+  // Respects the browser's Do-Not-Track setting: the gtag script is only
+  // injected (and loaded) when tracking actually runs.
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    var gaScript = document.createElement("script");
+    gaScript.async = true;
+    gaScript.src =
+      "https://www.googletagmanager.com/gtag/js?id={{ site.google-analytics.id }}";
+    document.head.appendChild(gaScript);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "{{ site.google-analytics.id }}");
+  }
+</script>
+{% endif %}

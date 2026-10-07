@@ -36,3 +36,8 @@ exclude:
   - Gemfile.lock
   - vendor
   - migration_report.md
+
+# Google Analytics (GA4)
+# Set id to "" to disable tracking.
+google-analytics:
+  id: "G-YKM8R2ZHTM"
