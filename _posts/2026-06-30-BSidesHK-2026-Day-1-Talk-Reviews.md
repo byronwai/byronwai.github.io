@@ -1,6 +1,6 @@
 ---
 title: "BSidesHK 2026 Day 1 Talk Reviews"
-date: 2026-09-30 12:00:00 +0000
+date: 2026-06-30 12:00:00 +0000
 slug: "BSidesHK-2026-Day-1-Talk-Reviews"
 tags: [BSides HK, Conference]
 ---
