@@ -202,7 +202,7 @@ transmitter, the Pi companion at 192.168.40.105. The challenge, stated plainly: 
 mode. Set it to STABILIZE, he said; if you see it flip to RTL, you hit it.
 
 Reality bit immediately. Port scans of the Pi showed 22 (SSH) and 111
-(rpcbind) and that was basically it. `tcp:192.168.40.x:5760` (the exact endpoint that had worked all afternoon in
+(rpcbind) and that was basically it. `tcp:192.168.40.105:5760` (the exact endpoint that had worked all afternoon in
 the simulator) came back **connection refused** on every laptop that tried. About twenty-seven people were probing
 at once, several of them with AI agents writing the attack script (one model
 flatly refused: it recognised "drone" and "damage" in the prompt; another
@@ -234,7 +234,7 @@ The links around the real drone, and why the attendee view looked so empty:
 flowchart LR
     subgraph DRONE["drone - airborne"]
         FC["flight controller<br/>ArduPilot / PX4"]
-        PI["Raspberry Pi companion 192.168.40.x<br/>mavlink-routerd"]
+        PI["Raspberry Pi companion 192.168.40.105<br/>mavlink-routerd"]
         FC <-->|"serial - not IP"| PI
     end
     subgraph GROUND["instructor ground segment"]
