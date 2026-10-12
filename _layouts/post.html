@@ -21,6 +21,10 @@ layout: default
     {{ content }}
   </div>
 
+  {% if page.mermaid %}
+  {% include mermaid.html %}
+  {% endif %}
+
   {% if site.posts.size > 1 %}
   {% assign current_index0 = -1 %}
   {% for p in site.posts %}
