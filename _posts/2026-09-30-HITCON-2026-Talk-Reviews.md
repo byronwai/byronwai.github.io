@@ -280,14 +280,14 @@ flowchart TD
 
 ![The WiFi Pineapple from the demo]({{ site.baseurl }}/assets/images/hitcon-2026/IMG_0420.jpg)
 
-The framing carries the talk. He says outright he can't read assembly, "I only know move and add". All the research came out of a harness he built around one agent: clawmeow, openclaw plus Gemini 3.5 Flash, configured without sleep(). The workflow is the part I keep telling people about. A small supervisor agent, what he called 程序員鼓勵師, the programmer encourager, sits next to the big agent and checks completeness. Whenever clawmeow wants to give up or declares the job done, the encourager rejects it and pushes it into another round. Above both sits the human, cast as the evil boss, whose entire contribution per his own transcript was: unplug it, plug it back in, reboot. Twenty-seven iterations to root. Then Snake and Tetris on the payment terminal.
+The framing carries the talk. He says outright he can't read assembly, "I only know move and add". All the research came out of a harness he built around one agent: clawmeow, openclaw plus Gemini 3.5 Flash, configured without sleep(). The workflow is the part I keep telling people about, and the best way to describe it is a 程序員鼓勵師, a programmer encourager. A small supervisor agent sits next to the big one and does a single job: check completeness. Whenever clawmeow wants to give up or declares the job done, the completeness check fails and back into the loop it goes. Above both sits the human, cast as the evil boss, whose entire contribution per his own transcript was: unplug it, plug it back in, reboot. Twenty-seven iterations to root. Then Snake and Tetris on the payment terminal.
 
 The harness, drawn out:
 
 ```mermaid
 flowchart TD
-    BOSS["Human, evil boss. Unplug, plug back in, reboot"] --> ENC["程序員鼓勵師, small supervisor agent, checks completeness"]
-    ENC -->|"not done, keep going"| BIG["clawmeow, openclaw plus Gemini 3.5 Flash, no sleep"]
+    BOSS["Human, evil boss. Unplug, plug back in, reboot"] --> ENC["Small supervisor agent, one job: check completeness"]
+    ENC -->|"not complete, keep going"| BIG["clawmeow, openclaw plus Gemini 3.5 Flash, no sleep"]
     BIG --> WRK["Research the terminal, software only"]
     WRK --> Q{"Gives up or calls it done"}
     Q -->|"rejected"| ENC
