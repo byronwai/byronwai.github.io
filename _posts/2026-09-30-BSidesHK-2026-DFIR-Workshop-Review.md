@@ -1,7 +1,7 @@
 ---
-title: "DFIR at Machine Speed Workshop Review"
-date: 2026-09-30 12:00:00 +0000
-slug: "DFIR-at-Machine-Speed-Workshop-Review"
+title: "BSidesHK 2026 DFIR Workshop Review"
+date: 2026-06-30 12:00:00 +0000
+slug: "BSidesHK-2026-DFIR-Workshop-Review"
 tags: [BSides HK, DFIR]
 ---
 
