@@ -1,8 +1,8 @@
 ---
-title: "DEFCON 852 - BadUSB and Other Blindspots Workshop"
+title: "DC852 - BadUSB and Other Blindspots Workshop"
 date: 2025-07-31 12:00:00 +0000
 slug: "DEFCON-852-BadUSB-and-Other-Blindspots-Workshop"
-tags: [BadUSB, Workshop]
+tags: [DC852, BadUSB, Workshop]
 ---
 
 Recently, I have been invited to join a local security community, Defcon Group Hong Kong (DC852), for a BadUSB workshop. It is an interesting workshop and I have sharpened my soldering skills.
