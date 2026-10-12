@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "SkyJack - Signal Hijacking Challenge: DC852 drone-hijack workshop write-up"
-date: 2026-10-12 12:00:00 +0000
+date: 2026-10-12 04:00:00 +0000
 slug: "SkyJack-DC852-Drone-Hijack-Writeup"
 tags: [DC852, Drone, MAVLink, OpenWRT, Wireless]
 mermaid: true
