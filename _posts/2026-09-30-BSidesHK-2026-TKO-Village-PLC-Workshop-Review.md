@@ -1,6 +1,6 @@
 ---
-title: "TKO Village PLC Workshop Review"
-date: 2026-09-30 12:00:00 +0000
+title: "BSidesHK 2026 TKO Village PLC Workshop Review"
+date: 2026-06-30 12:00:00 +0000
 slug: "TKO-Village-PLC-Workshop-Review"
 tags: [BSides HK, OT]
 ---
