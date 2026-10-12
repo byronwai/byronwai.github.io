@@ -198,7 +198,7 @@ and nmap the drone directly.
 The finale put a real drone on an isolated access point (its own SSID, no
 internet, a Raspberry Pi companion inside). The setup on the instructor's side:
 drone flying on Mission Planner over a SiK-style radio link, a dedicated RC
-transmitter, the Pi at a 192.168.40.x address. The challenge, stated plainly: from *your own machine* on that network, change the drone's flight
+transmitter, the Pi companion at 192.168.40.105. The challenge, stated plainly: from *your own machine* on that network, change the drone's flight
 mode. Set it to STABILIZE, he said; if you see it flip to RTL, you hit it.
 
 Reality bit immediately. Port scans of the Pi showed 22 (SSH) and 111
@@ -206,7 +206,10 @@ Reality bit immediately. Port scans of the Pi showed 22 (SSH) and 111
 the simulator) came back **connection refused** on every laptop that tried. About twenty-seven people were probing
 at once, several of them with AI agents writing the attack script (one model
 flatly refused: it recognised "drone" and "damage" in the prompt; another
-needed reframing as a security-research test). For a long stretch the room had
+needed reframing as a security-research test). Even reaching an AI was its
+own networking exercise: the challenge WiFi had no internet, so the way to
+your coding assistant was USB-tethering a phone as a second network card -
+challenge network on WiFi, AI on the phone. For a long stretch the room had
 the whole DVD workshop in its head and zero footholds on the real thing.
 
 The reveal, in the instructor's own words near the end: the answer is UDP, not
