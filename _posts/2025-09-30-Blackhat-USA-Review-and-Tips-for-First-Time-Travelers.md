@@ -5,7 +5,7 @@ slug: "Blackhat-USA-Review-and-Tips-for-First-Time-Travelers"
 tags: [Conference]
 ---
 
-### Prologue
+## Prologue
 
 Lucky enough to join Black Hat USA and DEF CON 33 this year. And yes, this is my first time joining both conferences. It is an eye-opening experience that allows me to understand what some of the best conferences should look like.
 
@@ -13,7 +13,7 @@ As my fellows should focus more on the technical side, I can write more about my
 
 And yes, I missed the chance to attend BSides LV due to a time conflict. 🫠
 
-### Black Hat USA (BHUSA)
+## Black Hat USA (BHUSA)
 
 I have varied interests that may not be related to my profession. You will see I hopped into different areas for my interest.
 
@@ -21,7 +21,7 @@ I have varied interests that may not be related to my profession. You will see I
 
 Random photo taken before the start of BHUSA
 
-#### Briefing
+### Briefing
 
 Briefing means a talk in BHUSA. I will specifically use the word “briefing” for BHUSA, as this is their official wording.
 
@@ -161,7 +161,7 @@ For the interesting side, apart from the talent pipeline the speaker share, we c
 
 ![image6]({{ site.baseurl }}/assets/images/blackhat-usa-travel-tips/image6.png)
 
-#### Business Booth & Arsenal
+### Business Booth & Arsenal
 
 You do not need a pass to visit this part. I received a whole luggage (exaggerated) of swags. Although the swags and toys are fun, I also receive a lot of emails from the vendors.
 
@@ -171,7 +171,7 @@ Random stuff that are not for sale, just an empty box
 
 Arsenal is a place for developers to showcase and demo their tools. I didn’t spend a lot of time on Arsenal, but it's worth taking a look. Especially when you are too tired for the briefing session.
 
-#### Food
+### Food
 
 It's not about good or bad, but wrong. But I love the desserts, at least. The food court with Asian cuisine is even better than the regular meal. But the boba milk tea tastes perfect, which tastes the same as Hong Kong milk tea.
 
@@ -183,7 +183,7 @@ Food that I ate in Day 1
 
 Yes, they have soya for Day 2
 
-#### Epilogue
+### Epilogue
 
 Great time in BHUSA as I just need to enjoy the talks. However, it is not quite possible to go 0x0G right after the end of BHUSA.
 

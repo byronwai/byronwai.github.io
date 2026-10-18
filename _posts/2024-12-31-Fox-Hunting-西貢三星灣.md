@@ -6,7 +6,7 @@ tags: [Fox Hunting, Radio]
 ---
 是咁的，話説我 11 尾嘅時候去咗跟童軍同 HARTS 一干人等去咗王兆生領袖訓練中心兩日一夜宿營。今次係我第一次有份幫手教中學生玩 Fox Hunting 同 set 場地，所以寫下籌備嘅心路歷程，順手介紹下。
 
-### Fox Hunting 101
+## Fox Hunting 101
 
 Fox Hunting (Transmitter hunting) 實際上係一班人負責係一個 Area set 好發射 Radio signal 嘅 Beacon，另一班人就帶住地圖同天線接收 Beacon 所發射嘅 signal。天線上面有兩個旋鈕，一個調整接收頻率，一個調整音量。
 
@@ -36,7 +36,7 @@ Beacon 真貌
 
 每隊參賽者會有 30 分鐘揾自己 Target 嘅 Beacon，揾到 Non-target 都有 Extra 分數。
 
-### Set 場
+## Set 場
 
 今次活動係香港業餘電台聯會 (HARTS) 同 深資童軍負責 set 場。我地係沙嘴去三星灣，全場 1.1 km 嘅山路上面沿途佈置 Beacon，合共 set 咗 6 個。大概我地每 70 步 (30m) set 一個 Beacon，接收下一個 Beacon 時候上一個嘅 signal 已經好微弱。
 
@@ -48,7 +48,7 @@ Beacon 真貌
 
 沿路細聽你的歌聲.jpg
 
-### 正賽 (?)
+## 正賽 (?)
 
 由於不可抗力，我做咗小隊導師要同自己啲仔一齊玩。但係我地要夜晚八點跑山入三星灣，亦即上圖嘅 Point A to Point B。
 
@@ -66,7 +66,7 @@ K6 入門其實好好，改壞都唔心痛
 
 最後我個隊係 0 分收場，叫佢哋覆卷又唔聽。
 
-### 後記
+## 後記
 
 Fox hunting 係一個好好嘅 Amature Radio 入門方法，除咗可以做運動之外，仲可以親身感受到天線方向同訊號接收之間嘅關係。
 

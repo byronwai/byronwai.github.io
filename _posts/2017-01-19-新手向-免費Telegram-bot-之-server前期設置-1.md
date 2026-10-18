@@ -8,7 +8,7 @@ tags: [Apache, Cloudflare, Telegram bot]
 幾經辛苦終於建立telegram bot！  
 由於好像無一篇文章可以好好整合server設置的steps，我決定寫一篇step to step go through一次。
 
-### 0. 前言
+## 0. 前言
 
 Telegram的好處太多，其中一項為支援用家寫bot去處理訊息，甚至可以寫[遊戲](https://storebot.me/bot/werewolfbot)。  
 從[官方API](https://core.telegram.org/bots/api)裡，我們得知bot處理訊息有兩種，<font color="red">setWebhook</font>跟<font color="red">getUpdates</font>，有興趣了解當中分別的可以參考[這裡](http://www.hksilicon.com/articles/1087698)。
@@ -20,7 +20,7 @@ Telegram的好處太多，其中一項為支援用家寫bot去處理訊息，甚
 
 如果你只想用desktop掛bot，或是使用getUpdates處理訊息的話，那麼可以先行離開。
 
-### 1. 配置
+## 1. 配置
 
 為了達成以上目的，我們需要以下三項東西：
 
@@ -30,7 +30,7 @@ Telegram的好處太多，其中一項為支援用家寫bot去處理訊息，甚
 
 當然如果你有錢買SSL的話，除第一項之外，其他東西是optional的。可是Let’s Encrypt的Free SSL是不管用的，Telegram要求的server要common name = domain name和[一些相對次要的要求](https://core.telegram.org/bots/webhooks)。關於CN要等於server domain的慘痛經歷，還是可以參考[這裡](http://www.hksilicon.com/articles/1087698)的。
 
-### 2. 申請Server
+## 2. 申請Server
 
 坊間有不少免費server，可是建立telegram bot不可能掛在靜態伺服器之上，因此不可能使用GitHub原生網頁達成目的。  
 [Bytehost](https://byet.host/)跟[000webhost](https://www.000webhost.com/)等動態伺服器(i.e.即支援PHP的server)則可以掛載telegram bot。(注: 000webhost於2015年曾有[密碼洩漏](http://www.forbes.com/sites/thomasbrewster/2015/10/28/000webhost-database-leak/#6623988b17c1)的先例，使用000webhost與否就自行判斷。)  
@@ -59,7 +59,7 @@ MySQL的那個也不作討論。(笑)
 到現在為止我們還沒有https，千萬不要先去申請SSL，因為CN要等於domain name，這樣就違背了最初的目的。  
 如果你只是想要server寫webpage，tutorial到這裡也就結束了。
 
-### 3. 申請Top-level Domain
+## 3. 申請Top-level Domain
 
 為甚麼需要top-level domain呢，這是因為方便掛在[Cloudflare](https://www.cloudflare.com/)上而需要的。如果想要申請[.tk](http://www.dot.tk/zu/index.html?lang=zu)的domain，可以直接參考[這裡](https://www.freehao123.com/tk/)。  
 我推薦的則是[Freenom](http://www.freenom.com/en/index.html)，只要能用就好。  
@@ -83,7 +83,7 @@ Freenom可以提供1 - 12個月的free domain，未來需要每年再續domain�
 
 Domain name申請就完成啦！
 
-### 4. Domain掛載 (Park Domain)
+## 4. Domain掛載 (Park Domain)
 
 回去server的panel，也就是step 2申請的那個。  
 去parked domain，記下DNS server。  
@@ -110,7 +110,7 @@ Domain name申請就完成啦！
 ![park_08]({{ site.baseurl }}/assets/images/20170119/park_08.png)  
 ![park_09]({{ site.baseurl }}/assets/images/20170119/park_09.png)
 
-### 5. Cloudflare掛載
+## 5. Cloudflare掛載
 
 首先，當然是註冊[Cloudflare](https://www.cloudflare.com/)帳戶。  
 如果已經有帳戶就直接登入。  
@@ -147,7 +147,7 @@ Case 1的處理方法就只有等，而Case 2則要自行手動添加。
 再回去Top-level Domain的網址，我的就是[https://abnormalexample.ga/](https://abnormalexample.ga/)，如果Browser沒有彈出警告的話，那就大功告成啦！  
 ![cloud_10]({{ site.baseurl }}/assets/images/20170119/cloud_10.png)
 
-### 6. 後記
+## 6. 後記
 
 想不到打一篇這樣的文章這麼花時間阿。下一次還是不要打這麼仔細(誤)！  
 如果看完這篇文章還有不明白的地方，可以到下面comment(有時間弄就是了)或參考下面文章：  

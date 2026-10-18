@@ -7,7 +7,7 @@ tags: [DC852, BadUSB, Workshop]
 
 Recently, I have been invited to join a local security community, Defcon Group Hong Kong (DC852), for a BadUSB workshop. It is an interesting workshop and I have sharpened my soldering skills.
 
-### About Workshop
+## About Workshop
 
 The workshop aims to demonstrate how an attacker can gain control over your device using a USB device or USB cable.
 
@@ -24,7 +24,7 @@ During the workshop, you will insert the USB Ninja Module between the USB mouse 
 
 Diagram of  how USBNinja Module should be placed
 
-### About BadUSB / USB Ninja Module
+## About BadUSB / USB Ninja Module
 
 BadUSB generally refers to devices that simulate Human Input Interface (HID) devices to carry out attacks. Back in 2010, Hak5 founder Darren Kitchen originally wanted to use Keystroke Injection to automate some repetitive and mundane tasks[^1].
 
@@ -42,7 +42,7 @@ Software for controlling and updating USB Ninja Module
 
 The USB Ninja Module is highlighted in orange
 
-### About USB 2.0
+## About USB 2.0
 
 As mentioned, the USB Ninja Module adapter performs MitM between USB Device and Host. It has 4 pins on left and 4 pins on right, for intercepting VCC,  Data+ (D+), Data- (D-), GND.
 
@@ -56,7 +56,7 @@ Nonreturn-To-Zero-Inverted (NRZI) encoding is used by USB. The flipping of polar
 
 ![image4]({{ site.baseurl }}/assets/images/defcon-852-badusb-workshop/image4.png)
 
-### Back to my soldering
+## Back to my soldering
 
 I have to disassemble the mouse and remove all 4 cables from the mouse。
 

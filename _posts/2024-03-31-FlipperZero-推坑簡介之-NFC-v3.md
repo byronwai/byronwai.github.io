@@ -18,7 +18,7 @@ tags: [FlipperZero, NFC]
   - iButton
   - 仲有內置小工具
 
-### Firmware Flashing
+## Firmware Flashing
 
 係玩 Flipper Zero 之前，我會建議先 Flash 咗個 Firmware 佢。Flipper Zero 原生嘅 Firmware 上面 Block 咗某啲功能，例如 Sub-1 GHz 某啲 Frequency 嘅傳輸。如果想 Unlock 所有 Feature 的話可以考慮 [Xtreme Firmware](https://flipper-xtre.me/)[^1] 或者 [Unleashed Firmware](https://flipperunleashed.com/)[^2]，兩款firmware 除咗解鎖咗 feature 之外，仲會包埋其他 developers 嘅 plugin 入去，集各家之大成。
 
@@ -28,7 +28,7 @@ tags: [FlipperZero, NFC]
 
 註2：係我交咗文之後幾日，XFW 嘅主要 contributor 出走自己整咗 [Momentum FM](https://momentum-fw.dev/)[^4]，都幾好用。
 
-### NFC
+## NFC
 
 宜家坊間一般嘅門禁卡都會用 High-Frequency Card, 當中最弱嘅係 Mifare Classic 1k (絕對唔係講緊你的悠遊卡)。
 
@@ -37,13 +37,13 @@ Mifare Card 平常嘅攻擊手法有：
   - Bruteforce Attack (Nested Attack)
   - Sniff Key (Darkside Attack)
 
-### Nested Attack
+## Nested Attack
 
 雖然 Mifare Classic 1k 有 16 個 encrypted sectors，拜佢用 LFSR 所賜只要解鎖到其中一個 就可以 Unlock 所有 Sector。(見 LFSR State Rollback)
 
 而有啲廠商偷懶嘅原因用 default key or simple key 可以直接係 [NFC_keys](https://github.com/Stepzor11/NFC_keys/blob/main/mf_classic_dict.nfc)[^5] 搵到 。甚至我宜家用嘅 XFW Firmware 自己就包咗 3941 條 key。只要 User 爆到其中一個 sector 一條 Key 就可以了。
 
-### Darkside Attack
+## Darkside Attack
 
 如果咁唔好彩 Key 唔係 Dictionary 入面，只能用 Sniff 嘅方法 Read Key。Mifare standard 之中 Reader respond 會包含 4 bits of keystream，導致 Mifare card 上面嘅 key 可以解譯並截獲。不過 Flipper Zero 只能 Fuzz and Emulate card ID 去嘗試 trigger Reader Response，唔似 iCopyX 咁直接 intercept reader同 card 之間嘅 communication。
 
@@ -75,7 +75,7 @@ Mifare Card 平常嘅攻擊手法有：
 
 ---
 
-### RFID & Others
+## RFID & Others
 
 至於 Low Frequency Card (RFID), 基本上用 Wiegand format 無做 encryption， 直接 read 完 emulate 就可以，decrypt 都慳返。
 
@@ -107,7 +107,7 @@ CUID / UID: <1 HKD
 
 註：學費馬話齋今期 newsletter 啲位已經用完，要留返下次先可以 share 點做 conversion。
 
-### 預告 (如果有下期)
+## 預告 (如果有下期)
 
 就會講下 Flipper Zero 其他功能，好似點用 Infrared 功能係 OWASP Meetup 嘅時候操弄 Speaker 個 Projector 咁。亦會講下 iOS 17 嘅 BLE crash 點樣用 Flipper Zero 做 PoC。
 

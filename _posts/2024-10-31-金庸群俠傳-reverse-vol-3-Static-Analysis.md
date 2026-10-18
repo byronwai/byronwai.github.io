@@ -12,23 +12,23 @@ tags: [Reverse Engineering]
 
 jpexs-decompiler 啓動！
 
-### Source
+## Source
 
 遊戲：<https://drive.google.com/file/d/14P9oS9gcTPXdHxpTMKA1HwXar7m9-Z-H/view>
 
 攻略：<https://forum.gamer.com.tw/Co.php?bsn=60183&sn=323189>
 
-### 目標
+## 目標
 
   - 不同功夫升級所需經驗值
   - 角色屬性
   - 學習功夫與秘籍的關鍵幀
 
-### 功夫經驗值
+## 功夫經驗值
 
 我在 Decompile 之前，在 網上[^2] 找到前人關於不同變數的研究，可用作輔助 reverse 及驗算不同結果，如招式等級所需的經驗值變化、招式威力變化等。
 
-### 降龍十八掌
+## 降龍十八掌
 
 我在下面的 reverse 以招式 降龍十八掌 爲例子，其他招式皆可使用同一方法拆解。 由於前人努力，我們知道所有功夫都跟漢語拼音相關。
 
@@ -62,7 +62,7 @@ jpexs-decompiler 啓動！
 
 悟性 (`W_X`) 對於功夫經驗值提升速度
 
-### 傷害公式
+## 傷害公式
 
 由傷害公式中可以找到，降龍十八掌傷害由以下因素影響：
 
@@ -80,17 +80,17 @@ jpexs-decompiler 啓動！
 
 ![image8]({{ site.baseurl }}/assets/images/jinyong-reverse-vol-3/image8.png)
 
-### 初始屬性
+## 初始屬性
 
 在 `frame 55`，我們找到角色初始屬性。基本上每一項都為隨機值，屬性之間未見相聯關係。
 
 ![image4]({{ site.baseurl }}/assets/images/jinyong-reverse-vol-3/image4.png)
 
-### 學習特殊功夫前置要求
+## 學習特殊功夫前置要求
 
 有部分功夫需要先學習武功秘籍，可以直接搜尋該武功秘籍的關鍵幀。
 
-### 北冥心法 & 北冥神功
+## 北冥心法 & 北冥神功
 
 北冥神功的前置學習條件為北冥心法等級 5。透過代碼分析 (以及 cheatsheet)，以下 variable 與其相關：
 
@@ -116,7 +116,7 @@ jpexs-decompiler 啓動！
 
 習得心法至 5 等後與學習其他功夫無異。
 
-### 左右互搏
+## 左右互搏
 
 左右互搏並非招式，以是可是同時可以攻擊兩次。因此其 variable 是 `aaa` 而非 `lv` 字段。
 

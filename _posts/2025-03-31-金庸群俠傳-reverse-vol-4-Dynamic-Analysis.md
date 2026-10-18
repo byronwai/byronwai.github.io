@@ -6,14 +6,14 @@ tags: [Reverse Engineering]
 ---
 在前兩期中，我們已經知道如何作 Static Analysis 拆解 Flash 遊戲代碼，以及更改遊戲存檔。本期前端以 Black-box 及 Gray-box 方法修改。
 
-### 工具
+## 工具
 
 以下 Demo 使用 [Flash Game master 3.3](https://www.xitongzhijia.net/soft/11697.html) 並使用以下功能：
 
   - 數值修改
   - 跳幀 (Skip Frame)
 
-### 數值修改
+## 數值修改
 
 在戰鬥中，內力是發動招式的關鍵。在本例子中，我們會嘗試找到內力的variable，修改並鎖定。
 
@@ -49,11 +49,11 @@ tags: [Reverse Engineering]
 
 ---
 
-### 跳幀 (Jump Frame)
+## 跳幀 (Jump Frame)
 
 在介紹 Flash 組成時，我們知道 Flash 動畫都是以 `Frame` 為單位，每幀都可加插不同 Action Script 執行邏輯。因此，只要找到不同事件對應的關鍵幀，就可直接到達該劇情，免去繁瑣或矛盾的前置條件。
 
-#### 左右互搏之術
+### 左右互搏之術
 
 在學習左右互搏前，辟邪劍法傷害為 3161：
 
@@ -85,7 +85,7 @@ tags: [Reverse Engineering]
   1. 在已知道劇情的幀前後嘗試 Jump
   2. Code Analysis
 
-### 結語
+## 結語
 
 這個系列已經到第四篇文章，希望大家可以用 Flash Game 爲引子，學習不同的 Reverse 技巧。在沒有防禦機制之下，不律用什麼語言編譯的遊戲都可用類近的思路破解。
 

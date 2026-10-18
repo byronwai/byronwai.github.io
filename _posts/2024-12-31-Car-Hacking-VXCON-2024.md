@@ -4,11 +4,11 @@ date: 2024-12-31 12:00:00 +0000
 slug: "Car-Hacking-VXCON-2024"
 tags: [Car Hacking, Conference, VXCON]
 ---
-### 前文提要
+## 前文提要
 
 之前我係 Volume 4 “SINCON 2024 Recollection”一文中講及 car hacking software level 點玩，如何利用 “can-utils”控制現代汽車 CANBus。今年係 VXCON 2024 我有份籌備同出席 Car Hacking Workshop，睇下今次嘅 Host - Jay Turla (@shipcod3) 會點演繹 Car Hacking。
 
-### 事前準備
+## 事前準備
 
 買咗一堆野，但係當日用嘅只有紅色嗰啲：
 
@@ -23,7 +23,7 @@ tags: [Car Hacking, Conference, VXCON]
 
 故事教訓係買 PCB 類嘅野唔好買預先焊接好嘅，因為 Speaker 將 CAN Bus 同 Arduino nano 焊埋一齊。針腳長度唔啱的話要先解焊再重新焊接。
 
-### Wiring
+## Wiring
 
 我有諗過係咪因為 Mazda 2 嘅 Wiring 已經有人 leak 咗所以 Speaker 先用 Mazda 2 做示範。
 
@@ -47,7 +47,7 @@ tags: [Car Hacking, Conference, VXCON]
 
 ---
 
-### CAN Bus
+## CAN Bus
 
 CAN Bus 用嚟連接成架嘅車嘅電子控制器。後來發現 CAN 有兩款 Standard (ISO 11898-2, ISO 11898-3)，反正幫手控制 CAN Bus 嘅 CANable 2.0 會自己控制咁我就跳過理論。
 
@@ -72,7 +72,7 @@ ODB-II 插頭位置
 
 經過漫長 troubleshoot 之後，終於成功上電開機。
 
-### CANable 使用方法
+## CANable 使用方法
 
 係一開始嘅時候，Speaker 點都用唔到 CANable 控制 Cluster，後來發現未更新 CANable firmware。
 
@@ -84,7 +84,7 @@ CANable 真貌
 
 連上之後會見到多咗 CANable 2 device
 
-### can-utils
+## can-utils
 
 can-utils 使用方法請參閱 Volume 4 “SINCON 2024 Recollection”一文。
 

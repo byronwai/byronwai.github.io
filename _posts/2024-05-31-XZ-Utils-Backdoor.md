@@ -4,13 +4,13 @@ date: 2024-05-31 12:00:00 +0000
 slug: "XZ-Utils-Backdoor"
 tags: [Supply Chain Security]
 ---
-### 序
+## 序
 
 係今年 3 月 29 號 Microsoft 嘅 PostgreSQL Developer, Andres Freund (X / Twitter: @AndresFreundTec) 向 Openwall 提交咗一個關於 XZ Utils Backdoor 嘅漏洞。 (<https://www.openwall.com/lists/oss-security/2024/03/29/4>) 由於 XZ 係一個好多 Linux distribution 都會用嘅壓縮 application，同時亦係一單 upstream software 出事，屬於 supply chain attack 嘅 backdoor implementation。
 
 註：Openwall 就係 develop John the Ripper 個間公司
 
-### 破
+## 破
 
 Andres Freund 本職並非 Security Analysis， 但係 XZ backdoor 大部分 technical details 都係 Andres 本人搵出嚟。只能講話今次搵到 XZ Backdoor 係一個極其幸運嘅事件。係寫 newsletter 嘅時候我去咗聽 Andres Freund 係 0xide 上面嘅訪問 “[Discovering the XZ Backdoor with Andres Freund](https://oxide.computer/podcasts/oxide-and-friends/1843393)”。
 
@@ -20,7 +20,7 @@ Andres Freund 本職並非 Security Analysis， 但係 XZ backdoor 大部分 tec
 
 Andres 感覺咁嘅行爲太過反常同可疑。正常嚟講係程式未執行到 main 嘅時候好少會大量佔用 CPU。同時間 sshd 唔係一個咁大型嘅程式，無需要花提多時間係 dynamic linker 搵對應嘅 libraries。Andres 亦有試過用 Github 上面嘅 XZ release，發現 Github release 版本並不會調用 sshd。經過一輪調查最後發現 Linux 入面嘅 XZ comprimize 咗。
 
-### 急
+## 急
 
 後來嘅故事大家都好清楚，Jia Tan 點樣係 3 年內一步步獲得對 XZ 原作者 Lasse Collin 嘅信任。同時利用假 account 對 Lasse Collin 施壓。而且今次 attack 嘅時間係 Lasse Collin 準備緊 XZ for Java 同休息嘅時間，Jia Tan 自己有所有權限行動。
 
@@ -28,7 +28,7 @@ Andres 感覺咁嘅行爲太過反常同可疑。正常嚟講係程式未執行�
 
 係 XZ 事件之後 OpenJS Foundation 係 JS Project 有搵到相類似嘅 [supply chain attack 手段](https://thehackernews.com/2024/04/openjs-foundation-targeted-in-potential.html)[^2]。雖然坊間有好似 [OpenSSF](https://openssf.org/)[^3] 咁嘅 orgianization 幫手保護 Open source project，但係攻擊都係防不勝防。
 
-### Reference
+## Reference
 
 <https://paper.seebug.org/3157/>
 

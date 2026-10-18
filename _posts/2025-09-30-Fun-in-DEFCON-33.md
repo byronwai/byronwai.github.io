@@ -5,13 +5,13 @@ slug: "Fun-in-DEFCON-33"
 tags: [Conference]
 ---
 
-### Prologue
+## Prologue
 
 Thanks to the Loong community for bringing me to the DEFCON33 party. I enjoyed the time that I spent in Las Vegas (mostly), and you will know why.
 
-### DEF CON 33
+## DEF CON 33
 
-#### Loong Community Helper
+### Loong Community Helper
 
 Unlike other villages that focus on a specific topic, we as a community offer various themes (and of course, hardware) for audiences to play with.
 
@@ -61,7 +61,7 @@ SignalSDR Pro?
 
 ![image7]({{ site.baseurl }}/assets/images/defcon-33/image7.png)
 
-#### As Human (aka attendee)
+### As Human (aka attendee)
 
 DEF CON uses “human” to represent a normal attendee, and I keep this word here.
 
@@ -129,7 +129,7 @@ Got a car, for real. But can’t take it home. I was thinking if you can perform
 
 ![image18]({{ site.baseurl }}/assets/images/defcon-33/image18.jpg)
 
-#### Wrong way to attend DC33
+### Wrong way to attend DC33
 
 Most villages will have their own schedules for talks and demonstrations. If you missed that time slot, you will probably see a bunch of guys staying at the booth for attempting the challenges. But having CTF or challenges is a part of DEFCON.
 
@@ -137,7 +137,7 @@ There are some of the villages that I am interested in, including lock picking a
 
 ![image5]({{ site.baseurl }}/assets/images/defcon-33/image5.png)
 
-#### MISC
+### MISC
 
 Nearly missed the PHRACK magazine. They require us to either tell them a fun fact or answer a question to get one.
 

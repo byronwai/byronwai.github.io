@@ -4,11 +4,11 @@ date: 2024-10-31 12:00:00 +0000
 slug: "ONIST-to-hack-Kiosk"
 tags: [Hardware Hacking]
 ---
-### Introduction
+## Introduction
 
 Ken Wong and I recently visited a secondary school to conduct cybersecurity workshops. After wrapping up our session, we noticed a food-ordering kiosk in the playground. Naturally, our curiosity kicked in, and we decided to see just how far we could go in exploring the system.
 
-### Attack See Load
+## Attack See Load
 
 The school’s meal services are provided by Chartwells, a Canada-based company.
 
@@ -34,7 +34,7 @@ The admin page was underwhelming. It had only two options: check your Octopus ba
 
 ![image3]({{ site.baseurl }}/assets/images/onist-kiosk/image3.png)
 
-### Root cause and more?
+## Root cause and more?
 
 ![image7]({{ site.baseurl }}/assets/images/onist-kiosk/image7.png)
 

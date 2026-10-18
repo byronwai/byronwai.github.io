@@ -5,14 +5,14 @@ slug: "ldap-setup"
 tags: [AD, LDAP]
 ---
 
-### 0. 前言
+## 0. 前言
 
 由於server上要使用Windows login crediential來登入server，以此紀錄設定過程。  
 參考[MSDN](https://blogs.msdn.microsoft.com/microsoftrservertigerteam/2017/04/10/step-by-step-guide-to-setup-ldaps-on-windows-server/)卻ldap_bind failed，一氣之下寫下過程。  
 OS: Windows 2012 R2  
 PHP: IIS 8
 
-### 1. Enable Active Directory Domain Service
+## 1. Enable Active Directory Domain Service
 
 到 Server Manager -> Manage -> Add Roles and Features，按下圖enable Active Directory Domain Services就可。
 
@@ -63,7 +63,7 @@ Server Version在此我選擇 Windows 2012 R2，請按照實際需要選擇。
 
 ![image24]({{ site.baseurl }}/assets/images/20180930/image24.png)
 
-### 2. Add New User
+## 2. Add New User
 
 由於Domain上增加使用者方式與一般有差異，一並紀錄。
 
@@ -84,7 +84,7 @@ Server Manager -> Manage -> Active Directory Users and Computers
 
 ![image29]({{ site.baseurl }}/assets/images/20180930/image29.png)
 
-### 3. Enable Active Directory Lightweight Directory Servives
+## 3. Enable Active Directory Lightweight Directory Servives
 
 Server Manager -> Manage -> Add Roles and Features
 

@@ -6,7 +6,7 @@ tags: [FlipperZero, Infrared]
 ---
 係 Flipper Zero 嘅紅外線 Infrared (IR) module 入面，包含住一組 IR 接收器同三粒 IR LED。令 Flipper Zero 具備發射同接收 IR signal 嘅能力。係云云咁多 functions 入面可以話係最容易 implement 同使用，但亦係日常生活中使用機會最多嘅一樣。
 
-### 讀取 IR signal
+## 讀取 IR signal
 
 坊間一般遙控器都係以發射 IR 去控制電子產品，例如電視遙控咁。當然宜家有啲電視已經轉用 Bluetooth (e.g. 小米電視)，就無得讀取佢嘅遙控 IR 信號。
 
@@ -16,7 +16,7 @@ tags: [FlipperZero, Infrared]
 
 當錄低咗 IR Signal 之後，Flipper Zero 會問你要唔 Save 低個 Command，可以之後 Reply。當有同一個遙控器嘅其他制要記錄，用下面嘅加號再重複以上動作即可。
 
-### IR signal Protocol
+## IR signal Protocol
 
 係一個 valid 嘅 IR signal 入面，必然會包含：
 
@@ -57,7 +57,7 @@ tags: [FlipperZero, Infrared]
 
 ---
 
-### Modulation (調制 / 調變)
+## Modulation (調制 / 調變)
 
 前人係做 IR Signal 嘅時候有預想過係生活中有大量 Ambiant IR，例如所有物體都會發射紅外線。爲咗減低外界干擾，IR LED 嘅 signal 並非好似上面咁靚，而係經過 modulation (調製)。關於 modulation 會之後投稿 SDR 嗰陣再仔細講。
 
@@ -65,13 +65,13 @@ Modulation 嘅本質就係將要傳輸嘅信號，換作其他 frequecy 先傳�
 
 以 NEC 爲例，carrier wave frequency 係 38.222kHz。換句話說，IR Receiver 可以每 26.16 µs 運作一次，如果以 26.16 µs 間距收不到一次 signal 就可以視作雜訊。如此一來可以摒除雜訊，避免意外觸發電器。
 
-### Universal Remotes
+## Universal Remotes
 
 Flipper Zero 其中一個功能就係 Universal Remotes。顧名思義就係所有嘅電器可以用用同一個 Remote 控制曬。
 
 好似 TV remote 嘅 power on 咁， Flipper Zero 實際上係會打曬所有佢已知 TV 嘅 Power On Protocol, Address, Command 嘅 dictionary。一個唔好彩真係要成兩分鐘射曬所有 payload 先中。但係好玩嘅係在未知電器嘅品牌，未知道 commad 嘅情況之下可以嘗試操控。
 
-### Saved Remotes
+## Saved Remotes
 
 毫無難度可言，就係上文記錄好遙控器嘅 IR Command。Github[^4] 上面有一個 Repo 專門記錄一堆可以比 Flipper Zero 用嘅 .ir 文件，放入 Flipper Zero 就可以當佢係原生嘅 remote 咁使用。有趣嘅係如果唔知對應嘅 protocol，用 raw 需要填翻 frequency 同 duty cycle。下面 Sharp Aquos TV 嘅 frequency 就代邊 38 kHz。歡迎大家上 <https://github.com/Lucaslhm/Flipper-IRDB> download 曬所有 remote。
 
@@ -79,7 +79,7 @@ Flipper Zero 其中一個功能就係 Universal Remotes。顧名思義就係所�
 
 ![image10]({{ site.baseurl }}/assets/images/flipperzero-infrared/image10.png)
 
-### 後記
+## 後記
 
 ![image17]({{ site.baseurl }}/assets/images/flipperzero-infrared/image17.png)
 
@@ -89,7 +89,7 @@ Make Infrared Great Again！好懷念以前可以用智障手機經 Infrared 就
 
 <https://ww1.microchip.com/downloads/en/DeviceDoc/adn006.pdf>
 
-### 預告
+## 預告
 
 下期應該 (終於) 講 Sub-GHz 嘅功能，例如可以係街開人地 Tesla 嘅充電蓋。希望有有心人資助我一部 Tesla 作研究用途。
 

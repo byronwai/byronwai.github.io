@@ -34,7 +34,7 @@ Lightroom 可以 cross-device 執相，太方便了。但係後來發現每次�
 
 思考過後，我決定動用禁忌力量之，GLM！(其實我都係博下，萬一唔得我就重新執過啲相。)
 
-### Target
+## Target
 
 廢話。不就是把圖片跟 progress recover 嗎？對，但是只對了一半。
 
@@ -48,7 +48,7 @@ Lightroom 可以 cross-device 執相，太方便了。但係後來發現每次�
 
 甚至因為我 workflow 會直接 upload RAW 到 Lightroom，RAW 有 backup 也不一定需要。ACR 也可以透過 XMP 重新計算。RAW, XMP, ACR 三款 file 之後有機會再講。
 
-### How we start
+## How we start
 
 ![image2]({{ site.baseurl }}/assets/images/lightroom/image2.png)
 
@@ -65,7 +65,7 @@ Lightroom tree view
 
 Adobe 無 notes 但係 BanG Dream! 有 Our Notes
 
-### SQLite
+## SQLite
 
 ![image3]({{ site.baseurl }}/assets/images/lightroom/image3.png)
 
@@ -88,7 +88,7 @@ Managed Catalog.wfindex 結構
 
 後來嘅 XMP 只需要對返 hash，或者 purgeCandidates.docId, purgeCandidates. assetId 都可以 pair up RAW 檔同 XMP file。
 
-### Lesson Learned (?)
+## Lesson Learned (?)
 
 Adobe 正垃圾。啲 file spec 全部都唔講，account remove from OU 又無機會拎返啲野走。
 
