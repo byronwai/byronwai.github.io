@@ -41,17 +41,3 @@ exclude:
 # Set id to "" to disable tracking.
 google-analytics:
   id: "G-YKM8R2ZHTM"
-
-# Giscus comments (GitHub Discussions) — https://giscus.app
-# The widget renders on posts only when category_id is set. Prerequisites:
-# 1) Discussions enabled on this repo (repo Settings → General → Features)
-# 2) the giscus GitHub app installed (https://github.com/apps/giscus)
-# 3) data-category-id from giscus.app (or the discussions categories API)
-# Opt out per post with `comments: false` in a post's front matter.
-giscus:
-  repo: "byronwai/byronwai.github.io"
-  repo_id: "R_kgDOU8AtJA"
-  category: "Announcements"
-  category_id: ""
-  mapping: "pathname"
-  lang: "zh-Hant"
