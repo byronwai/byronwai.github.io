@@ -1,0 +1,44 @@
+{%- comment -%}
+  Post card. Params: post (required), featured (optional bool).
+  Thumbnail = `image:` front matter, else the first <img> in the post.
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign thumb = p.image -%}
+{%- if thumb == nil -%}
+  {%- assign img_parts = p.content | split: '<img' -%}
+  {%- if img_parts.size > 1 -%}
+    {%- assign src_parts = img_parts[1] | split: 'src="' -%}
+    {%- assign thumb = src_parts[1] | split: '"' | first -%}
+  {%- endif -%}
+{%- endif -%}
+{%- assign excerpt = p.description | default: p.excerpt | strip_html | normalize_whitespace -%}
+{%- if excerpt.size < 24 -%}
+  {%- assign excerpt = p.content | strip_html | normalize_whitespace -%}
+{%- endif -%}
+{%- capture mins -%}{% include reading-time.html content=p.content %}{%- endcapture -%}
+{%- assign hue = p.title | size | modulo: 6 -%}
+<article class="card{% if include.featured %} card--featured{% endif %}" data-tags="{{ p.tags | join: '|' | escape }}">
+  <div class="card-media{% unless thumb %} card-media--fallback hue-{{ hue }}{% endunless %}">
+    {%- if thumb -%}
+    <img src="{{ thumb }}" alt="" loading="lazy" decoding="async">
+    {%- else -%}
+    <span class="card-fallback-text">{{ p.tags | first | default: site.title }}</span>
+    {%- endif -%}
+  </div>
+  <div class="card-body">
+    <div class="card-meta">
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%Y-%m-%d' }}</time>
+      <span class="dot-sep" aria-hidden="true"></span>
+      <span>{{ mins }} 分鐘閱讀</span>
+    </div>
+    <h3 class="card-title"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+    <p class="card-excerpt">{{ excerpt | truncate: 180 }}</p>
+    {%- if p.tags.size > 0 -%}
+    <div class="card-tags">
+      {%- for tag in p.tags limit: 3 -%}
+      <a class="tag" href="{{ tag | slugify | prepend: '/tags/#' | relative_url }}">{{ tag }}</a>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</article>

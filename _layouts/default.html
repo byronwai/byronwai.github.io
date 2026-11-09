@@ -3,14 +3,18 @@
 <head>
   {% include head.html %}
 </head>
-<body>
+<body class="layout-{{ page.layout | default: 'default' }}">
+  <a class="skip-link" href="#main">跳到內容</a>
   {% include header.html %}
-  <main class="site-main">
+  <main class="site-main" id="main">
     <div class="wrap">
       {{ content }}
     </div>
   </main>
   {% include footer.html %}
-  {% include back_to_top.html %}
+  {% include search.html %}
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="回到頂部">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
 </body>
 </html>

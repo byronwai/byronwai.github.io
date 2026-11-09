@@ -1,0 +1,21 @@
+{%- comment -%}
+  Outputs estimated reading minutes for include.content (rendered HTML).
+  Code blocks are skipped. CJK-heavy text (few spaces → long "words")
+  is estimated at ~400 chars/min, Latin text at ~220 words/min.
+{%- endcomment -%}
+{%- assign rt_text = '' -%}
+{%- assign rt_chunks = include.content | split: '</pre>' -%}
+{%- for rt_chunk in rt_chunks -%}
+  {%- assign rt_keep = rt_chunk | split: '<pre' | first -%}
+  {%- assign rt_text = rt_text | append: rt_keep -%}
+{%- endfor -%}
+{%- assign rt_plain = rt_text | strip_html | normalize_whitespace -%}
+{%- assign rt_chars = rt_plain | size -%}
+{%- assign rt_words = rt_plain | number_of_words | at_least: 1 -%}
+{%- assign rt_ratio = rt_chars | divided_by: rt_words -%}
+{%- if rt_ratio > 12 -%}
+  {%- assign rt_min = rt_chars | divided_by: 400 -%}
+{%- else -%}
+  {%- assign rt_min = rt_words | divided_by: 220 -%}
+{%- endif -%}
+{{- rt_min | at_least: 1 -}}

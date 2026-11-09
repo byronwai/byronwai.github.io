@@ -4,6 +4,12 @@ title: "404"
 permalink: /404.html
 ---
 
-<h2 class="notfound-title">cat 找不到的頁面</h2>
-<p>cat: 找不到的頁面: No such file or directory — 您要找的頁面不存在，可能已被移動或刪除。</p>
-<p><a href="{{ '/' | relative_url }}">cd ~ 回到首頁</a></p>
+<div class="notfound">
+  <p class="notfound-code">404</p>
+  <p class="notfound-cmd"><b>$</b> cat 找不到的頁面<br><span>cat: 找不到的頁面: No such file or directory</span></p>
+  <p>您要找的頁面不存在，可能已被移動或刪除。</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{{ '/' | relative_url }}">cd ~ 回到首頁</a>
+    <button type="button" class="btn btn-ghost" data-search-open>搜尋文章</button>
+  </div>
+</div>

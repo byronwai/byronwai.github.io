@@ -1,12 +1,37 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-{% if page.description %}
-<meta name="description" content="{{ page.description }}">
-{% else %}
-<meta name="description" content="{{ site.description }}">
+{% assign meta_desc = page.description | default: site.description %}
+{% if page.layout == 'post' and page.description == nil %}
+  {% assign meta_desc = page.excerpt | strip_html | normalize_whitespace | truncate: 160 %}
+  {% if meta_desc.size < 20 %}{% assign meta_desc = site.description %}{% endif %}
 {% endif %}
-<meta name="theme-color" content="#070b14">
+<meta name="description" content="{{ meta_desc | escape }}">
+<meta name="author" content="{{ site.author }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+
+{%- comment -%} Social cards: first image in the post (or `image:` front matter). {%- endcomment -%}
+{% assign og_image = page.image %}
+{% if og_image == nil and page.layout == 'post' %}
+  {% assign img_parts = content | split: '<img' %}
+  {% if img_parts.size > 1 %}
+    {% assign src_parts = img_parts[1] | split: 'src="' %}
+    {% assign og_image = src_parts[1] | split: '"' | first %}
+  {% endif %}
+{% endif %}
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+<meta property="og:description" content="{{ meta_desc | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+{% if og_image %}
+<meta property="og:image" content="{{ og_image | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+{% else %}
+<meta name="twitter:card" content="summary">
+{% endif %}
+
+<meta name="theme-color" content="#0b0b0f">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ '/favicon.png' | relative_url }}">
 <link rel="apple-touch-icon" sizes="180x180" href="{{ '/apple-touch-icon.png' | relative_url }}">
 <script>
@@ -20,13 +45,14 @@
     } catch (e) {}
     document.documentElement.setAttribute('data-theme', theme);
     var m = document.querySelector('meta[name="theme-color"]');
-    if (m) m.setAttribute('content', theme === 'dark' ? '#070b14' : '#eef2f8');
+    if (m) m.setAttribute('content', theme === 'dark' ? '#0b0b0f' : '#fafafa');
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+<script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
 
 <!-- Google tag (gtag.js) — GA4 -->

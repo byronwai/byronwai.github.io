@@ -1,29 +1,49 @@
 ---
 layout: default
 ---
+{%- capture mins -%}{% include reading-time.html content=content %}{%- endcapture -%}
 
 <article class="post">
   <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time>
-    </p>
-    {% if page.tags %}
+    {% if page.tags.size > 0 %}
     <div class="post-tags">
-      {% for tag in page.tags %}
-      <a class="tag-pill" href="{{ tag | slugify | prepend: '/tags/#' | relative_url }}">{{ tag }}</a>
-      {% endfor %}
+      {% for tag in page.tags %}<a class="tag" href="{{ tag | slugify | prepend: '/tags/#' | relative_url }}">{{ tag }}</a>{% endfor %}
     </div>
     {% endif %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-meta">
+      <span class="author-chip"><span class="brand-mark" aria-hidden="true">錯</span>{{ site.author }}</span>
+      <span class="dot-sep" aria-hidden="true"></span>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time>
+      <span class="dot-sep" aria-hidden="true"></span>
+      <span>{{ mins }} 分鐘閱讀</span>
+    </div>
   </header>
 
-  <div class="post-content">
-    {{ content }}
+  <div class="post-layout">
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    <aside class="toc" id="toc" aria-label="目錄" hidden>
+      <details open>
+        <summary>目錄</summary>
+        <nav class="toc-nav"></nav>
+      </details>
+    </aside>
   </div>
 
   {% if page.mermaid %}
   {% include mermaid.html %}
   {% endif %}
+
+  <footer class="post-footer">
+    <button type="button" class="btn btn-ghost btn-sm" data-copy-link>
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>複製連結</span>
+    </button>
+    <a class="btn btn-ghost btn-sm" href="{{ '/archives/' | relative_url }}">所有文章</a>
+  </footer>
 
   {% if site.posts.size > 1 %}
   {% assign current_index0 = -1 %}
@@ -35,12 +55,12 @@ layout: default
   <nav class="post-nav" aria-label="Post navigation">
     {% for p in site.posts %}
     {% if forloop.index0 == older_index %}
-    <a class="post-nav-item" href="{{ p.url | relative_url }}">
+    <a class="post-nav-item post-nav-older" href="{{ p.url | relative_url }}">
       <span class="post-nav-label">← 較舊的文章</span>
       <span class="post-nav-title">{{ p.title }}</span>
     </a>
     {% elsif forloop.index0 == newer_index %}
-    <a class="post-nav-item" href="{{ p.url | relative_url }}">
+    <a class="post-nav-item post-nav-newer" href="{{ p.url | relative_url }}">
       <span class="post-nav-label">較新的文章 →</span>
       <span class="post-nav-title">{{ p.title }}</span>
     </a>

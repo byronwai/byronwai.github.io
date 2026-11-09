@@ -5,3 +5,4 @@ vendor/
 .sass-cache/
 *.swp
 MIGRATION/
+Gemfile.lock
