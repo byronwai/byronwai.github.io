@@ -20,7 +20,7 @@
 <article class="card{% if include.featured %} card--featured{% endif %}" data-tags="{{ p.tags | join: '|' | escape }}">
   <div class="card-media{% unless thumb %} card-media--fallback hue-{{ hue }}{% endunless %}">
     {%- if thumb -%}
-    <img src="{{ thumb }}" alt="" loading="lazy" decoding="async">
+    <img src="{{ thumb }}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">
     {%- else -%}
     <span class="card-fallback-text">{{ p.tags | first | default: site.title }}</span>
     {%- endif -%}

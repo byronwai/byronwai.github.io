@@ -36,4 +36,4 @@ echo '<link rel="stylesheet" type="text/css" href="style.css?' . filemtime('styl
 
 ## 3. 福利
 
-![](http://i2.hdslb.com/bfs/archive/59cabf00681fd2569975e1b540dbdb040675ba7f.jpg)
+![](https://i2.hdslb.com/bfs/archive/59cabf00681fd2569975e1b540dbdb040675ba7f.jpg){: referrerpolicy="no-referrer"}
