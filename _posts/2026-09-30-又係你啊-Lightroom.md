@@ -38,15 +38,19 @@ Lightroom 可以 cross-device 執相，太方便了。但係後來發現每次�
 
 廢話。不就是把圖片跟 progress recover 嗎？對，但是只對了一半。
 
-當你影完相之後會有一個 RAW 檔 (ARW for Sony)，而相關的成品會 export 作 JPG / TIFF 等其他格式。Export 後的 progress 會消失不見，要儲存 progress 的話需要 XMP, ACR 的 sidecar 檔案。未來再 edit 的話只要同步將 RAW 檔與 XMP, ACR 同步匯入 Lightroom 即可。
+當你影完相之後會有一個 RAW 檔 (ARW for Sony)，而相關的成品會 export 作 JPG / TIFF 等其他格式。Export 後的 progress 會消失不見，要儲存 progress 的話需要 XMP 嘅 sidecar 檔案；如果有用 AI mask (Select Subject、Sky、Background 嗰啲)，仲會多一個 ACR。未來再 edit 的話只要同步將 RAW 檔與 XMP (同 ACR) 匯入 Lightroom 即可。
 
 所以我只需要 recover：
 
 - RAW (ARW 原圖)
 - XMP (Metadata, Editing instructions)
-- ACR (Raster Mask)
+- ACR (Raster Mask，AI mask 計出嚟嘅 bitmap，同 Remove tool 嘅 patch)
 
-甚至因為我 workflow 會直接 upload RAW 到 Lightroom，RAW 有 backup 也不一定需要。ACR 也可以透過 XMP 重新計算。RAW, XMP, ACR 三款 file 之後有機會再講。
+![acr-decomposed]({{ site.baseurl }}/assets/images/lightroom/acr-decomposed.png)
+
+拆開一個 ACR 入面係咩：四張 AI mask 加三塊 Remove tool 補返嘅 patch
+
+甚至因為我 workflow 會直接 upload RAW 到 Lightroom，RAW 有 backup 也不一定需要。冇咗 ACR，Lightroom 都可以用 XMP 入面嘅參數再跑一次 AI model 重新計 mask，但只係差唔多，唔保證一模一樣。RAW, XMP, ACR 三款 file 之後有機會再講。
 
 ## How we start
 
@@ -74,7 +78,7 @@ Managed Catalog.wfindex 結構
 繼續拆 .wfindex 嘅時候會發現，table purgeCandidates 儲存將移除嘅檔案。同時發現 purgeCandidates.binaryType：
 
 - xmp_develop -> XMP
-- aux -> Mask / Gen AI (partial ACR data)
+- aux -> AI mask 嘅 raster 同 Remove tool 嘅 patch (即係 ACR 入面嗰啲 record，逐個獨立存，用 MD5 做 file name)
 
 ![image4]({{ site.baseurl }}/assets/images/lightroom/image4.png)
 
