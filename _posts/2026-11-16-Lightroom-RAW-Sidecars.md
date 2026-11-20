@@ -9,7 +9,7 @@ tags: [Photography, Lightroom, Reverse Engineering, File Format]
 
 - ARW: Sony RAW sensor data
 - XMP: Program, 曝光顏色調整, Parametric Mask
-- ACR: AI generate 嘅 raster mask, 無咗的話可以依靠 XMP 重新計算
+- ACR: AI generate 嘅 raster mask 同 Remove patch。無咗可能要重新計算，唔保證還原到同一個結果
 
 ![DSC03049 as a shader pipeline: ARW in, XMP and ACR passes, JPG out]({{ site.baseurl }}/assets/images/lightroom/blog-shader-pipeline.png)
 
@@ -75,7 +75,8 @@ XMP 就是 XML。略等於最終 Output 生成嘅 prompt。
   - Engine 每次 render 會 real time 計，毋須 save
 - AI mask & Remove
   - pointer-like
-  - model 嘅 output 冇得 100% 重現，所以 XMP 只係記住個 MD5 (`MaskDigest`) 同擺放位置 (`Origin`)，pixel 喺 ACR
+  - AI mask 用 `MaskDigest` 指去 ACR 嘅 raster，`Origin` 記住擺放位置
+  - Remove 就用 `pm_patch` 同 `pm_patch_mask` 指去揀中嘅補圖同 blend mask，另外記住 target rectangle；pixel 一樣喺 ACR
 
 ![Two XMP rules: the name, and the envelope]({{ site.baseurl }}/assets/images/lightroom/blog-xmp-rules.png)
 
@@ -127,6 +128,24 @@ XMP 就是 XML。略等於最終 Output 生成嘅 prompt。
 ![MaskDigest in the XMP is the MD5 of the ACR record; Origin places it]({{ site.baseurl }}/assets/images/lightroom/blog-mask-binding.png)
 
 答案係 **content addressing。** XMP 嘅 `MaskDigest` 就係 ACR record 嘅 MD5，cache 入面個 file 都係用呢個 MD5 命名。直接拎 hash 去 lookup 就得。之前我餵咗其他 folder (XMP + ACR) 嘅結構比 Claude，完全吻合的。
+
+#### 補記：GenAI Remove 原來有另一個入口（2026-11-20）
+
+之後用另一張相 DSC06771 試自己寫嘅 compiler，發現左上角明明喺 Lightroom 移除咗嘅樹枝，compile 完又出返嚟。唔係 ACR 冇帶齊，而係呢份 XMP 將嗰個 edit 放咗喺 `RetouchAreas`，之前個 parser 只讀 `RemoveAreas`，於是成個 pass 被漏咗。
+
+呢個 entry 係 `SpotType="heal_patchmatch"`、`fill_method="firefly"`，一樣有 `pm_patch` 同 `pm_patch_mask`。跟住兩個 hash 去 ACR 搵，揀中嘅補圖同 blend mask 都仲喺度，唔使重新叫 AI 生過。修正之後，compiled image 同兩款 Reel 嘅成品畫面都有套用返個 removal。
+
+所以寫 reader 唔可以淨係認一個 container name；兩個 sequence 都要睇，再確認 entry 有冇對應嘅 patch。`RetouchAreas` 亦可能包含傳統 heal / clone，唔係見到個名就當全部都係 GenAI。以上係呢組實際檔案驗證到嘅行為，唔代表已經拆晒 Adobe 所有版本。
+
+## 自己砌個 Sidecar Compiler
+
+拆完唔想淨係睇 hex，所以砌咗個 [LR Sidecar Compiler](https://lr-sidecar.byronwai.workers.dev/)，[source 喺 GitHub](https://github.com/byronwai/lr-sidecar)。將 ARW、XMP 同 ACR 拖入去，就可以喺 browser 睇每個 pass 點樣改張相。相片喺本機處理，唔會 upload 去 server。
+
+最鍾意仍然係個 slice preview：將 edits 疊成一疊，逐層拆開睇。收埋個 stack 嘅時候，hover 或手指按住其中一層，可以拎到最面。亦可以 export 直式 Reel，用 **Behind the edit** 做預設標題，揀簡短嘅 Teaser 或顯示調整參數嘅 Tutorial。Reel 會挑選影響較大嘅步驟講，成品仍然包含所有啟用嘅 pass。
+
+最近亦加返儲存咗嘅 crop / rotation 過場：平滑轉到最終構圖，之後張相保持定住。顏色方面改咗高光加色時嘅處理，減少飽和顏色令高光偏色。不過 compiler 目前用嘅係 ARW 內嵌嘅相機 JPEG，唔係重新 decode sensor data；套用 XMP 只係近似重建，唔會同 Lightroom 一模一樣。
+
+如果想 Reel 嘅成品畫面保留 Lightroom export 嘅顏色，可以**另外加一張已執好嘅 JPG**。呢張係 optional，只用喺封面同完成畫面；中間仍然保留 sidecar 重建嘅 slice walkthrough，唔會將成張 JPG 扮成逐層還原。
 
 ## 融合發動
 
