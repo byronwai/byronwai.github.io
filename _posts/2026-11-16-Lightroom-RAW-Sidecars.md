@@ -63,6 +63,8 @@ Sony 冇自己發明 container，ARW 就係 TIFF/EP 加一堆 Sony 私家 tag。
 
 CR3 唔係 TIFF。佢用 ISO Base Media File Format，即係 MP4 同 HEIF 嗰套：每個 box 頭 4 byte 係 size，跟住 4 byte 係 type，一層包一層。`ftyp` 嘅 brand 係 `crx `。
 
+![IMG_9055.CR3: where the bytes go, and the box chase to the photo]({{ site.baseurl }}/assets/images/lightroom/blog-cr3-map.png)
+
 IMG_9055.CR3（33.1 MB）大概係咁：
 
 | Box | 內容 | Size |
