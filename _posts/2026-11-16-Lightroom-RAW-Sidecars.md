@@ -173,11 +173,13 @@ XMP 就是 XML。略等於最終 Output 生成嘅 prompt。
 
 ## 自己砌個 Sidecar Compiler
 
-拆完唔想淨係睇 hex，所以砌咗個 [LR Sidecar Compiler](https://lr-sidecar.byronwai.workers.dev/)，[source 喺 GitHub](https://github.com/byronwai/lr-sidecar)。將 ARW、XMP 同 ACR 拖入去，就可以喺 browser 睇每個 pass 點樣改張相。相片喺本機處理，唔會 upload 去 server。
+拆完唔想淨係睇 hex，所以砌咗個 [LR Sidecar Compiler](https://lr-sidecar.byronwai.workers.dev/)，[source 喺 GitHub](https://github.com/byronwai/lr-sidecar)。將 ARW（或者 Canon CR3）、XMP 同 ACR 拖入去，就可以喺 browser 睇每個 pass 點樣改張相。相片喺本機處理，唔會 upload 去 server。
 
 最鍾意仍然係個 slice preview：將 edits 疊成一疊，逐層拆開睇。收埋個 stack 嘅時候，hover 或手指按住其中一層，可以拎到最面。亦可以 export 直式 Reel，用 **Behind the edit** 做預設標題，揀簡短嘅 Teaser 或顯示調整參數嘅 Tutorial。Reel 會挑選影響較大嘅步驟講，成品仍然包含所有啟用嘅 pass。
 
-最近亦加返儲存咗嘅 crop / rotation 過場：平滑轉到最終構圖，之後張相保持定住。顏色方面改咗高光加色時嘅處理，減少飽和顏色令高光偏色。不過 compiler 目前用嘅係 ARW 內嵌嘅相機 JPEG，唔係重新 decode sensor data；套用 XMP 只係近似重建，唔會同 Lightroom 一模一樣。
+最近亦加返儲存咗嘅 crop / rotation 過場：平滑轉到最終構圖，之後張相保持定住。顏色方面改咗高光加色時嘅處理，減少飽和顏色令高光偏色。不過 compiler 目前用嘅係 RAW 內嵌嘅相機 JPEG，唔係重新 decode sensor data；套用 XMP 只係近似重建，唔會同 Lightroom 一模一樣。
+
+補記（2026-11-21）：compiler 而家亦食 Canon CR3。用 track 1 嗰張 6000×4000 JPEG 做底，白平衡直接讀 CTMD 入面嘅 ColorData；distortion correction 係 Off 嘅話，AI mask 就唔做 warp。不過手上未有 CR3 連住 Lightroom XMP 同 ACR 嘅 export，所以 Canon 嘅 mask 對位未驗證到。
 
 如果想 Reel 嘅成品畫面保留 Lightroom export 嘅顏色，可以**另外加一張已執好嘅 JPG**。呢張係 optional，只用喺封面同完成畫面；中間仍然保留 sidecar 重建嘅 slice walkthrough，唔會將成張 JPG 扮成逐層還原。
 
