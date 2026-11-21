@@ -45,7 +45,7 @@ PNG 係 stream，由頭讀到尾；TIFF 係 pointer chase。Header 指去 IFD (i
 
 ### ARW
 
-Sony 冇自己發明 container，ARW 就係 TIFF/EP 加一堆 Sony 私家 tag。Canon CR2，Nikon NEF 都係同一個套路；Canon CR3 同 Fuji RAF 就自成一派。
+Sony 冇自己發明 container，ARW 就係 TIFF/EP 加一堆 Sony 私家 tag。Canon CR2，Nikon NEF 都係同一個套路；Canon CR3 同 Fuji RAF 就自成一派（CR3 喺[下面](#cr3)拆咗）。
 
 ![DSC03049.ARW: where the bytes go, and the pointer chase to the photo]({{ site.baseurl }}/assets/images/lightroom/blog-arw-map.png)
 
@@ -56,6 +56,38 @@ Sony 冇自己發明 container，ARW 就係 TIFF/EP 加一堆 Sony 私家 tag。
 - MakerNotes 係 38 KB 嘅 Sony 私家地帶，白平衡 matrix，lens correction 都喺度，所以每個 RAW decoder 都要寫 vendor-specific code
 
 > Recovery tip：之前 recover 嗰陣有幾千張 metadata 冇晒嘅 render 要 match 返原相。做法就係 scan `FFD8`…`FFD9`，揀最大嗰段，啱啱好就係 IFD2 嗰張 full frame。
+
+### CR3
+
+補記（2026-11-21）：有人 send 咗張 Canon EOS R50 嘅 CR3 嚟，順手拆埋。
+
+CR3 唔係 TIFF。佢用 ISO Base Media File Format，即係 MP4 同 HEIF 嗰套：每個 box 頭 4 byte 係 size，跟住 4 byte 係 type，一層包一層。`ftyp` 嘅 brand 係 `crx `。
+
+IMG_9055.CR3（33.1 MB）大概係咁：
+
+| Box | 內容 | Size |
+|---|---|---:|
+| `moov` → `uuid`（Canon） | `CMT1`–`CMT4` metadata，`THMB` 160×120 縮圖 | 29 KB |
+| `moov` → `trak` ×4 | 每條 track 一個 table，記住 data 喺 `mdat` 邊度 | 2 KB |
+| `uuid`（XMP） | 只有 `<xmp:Rating>0</xmp:Rating>`，其餘全部係 padding | 64 KB |
+| `uuid`（PRVW） | 1620×1080 preview JPEG | 394 KB |
+| `mdat` | 四條 track 嘅實際 data | 32.6 MB |
+
+`mdat` 入面四條 track：
+
+1. 6000×4000 full-size JPEG（3.6 MB）
+2. 1624×1080 細 RAW
+3. 6000×4000 CRAW sensor data（27.1 MB，成個 file 嘅 82%）
+4. CTMD timed metadata
+
+同 ARW 比，幾樣值得留意：
+
+- TIFF 其實冇死。`CMT1`–`CMT4` 每個都係一個細 TIFF（`II*\0`）：IFD0（Make、Model、Orientation）、EXIF（光圈、快門、RF50mm F1.8 STM）、MakerNote、GPS。上面嗰套 pointer chase 照用，只係外面包多咗一層 box
+- Full-size JPEG 唔使跳 next-IFD，跟 track 1 嘅 `co64` offset 就搵到。Recovery 嗰招 scan `FFD8` 揀最大嗰段，一樣 work
+- 白平衡唔喺 MakerNote。R50 將 `ColorData` 搬咗去 CTMD 第 8 類 record（ExifTool 叫 ColorData11，version 48，R7、R10、R50、R6 Mark II 共用）。Index 105 係 as-shot RGGB `1777/1024/1024/1736`，index 109 直接寫住 `5200` K。Sony 要用幾個 Kelvin preset 內插先估到色溫，Canon 就直接話你知
+- Lens correction 亦都喺 CTMD。`VignettingCorr2` 寫住 peripheral illumination、chromatic aberration、Digital Lens Optimizer 都係 On，但 distortion correction 係 **Off**，即係呢張 camera JPEG 冇做變形校正。Sony 嗰張要將 AI mask warp 一次先對得準；呢張理論上唔使。所以 compiler 要逐張讀呢個 flag，唔可以當晒所有相機一樣
+
+可惜今次只有一張 Lightroom iOS export 嘅 JPG（2048×1537，crop 咗做接近 4:3），冇 XMP 同 ACR，所以 Canon 嗰邊嘅 sidecar 行為未驗證到。
 
 ### XMP
 
@@ -161,7 +193,7 @@ XMP 就是 XML。略等於最終 Output 生成嘅 prompt。
 ## Open Question
 
 - `0x10` 嗰個 reserved u32 係用嚟做咩？
-- 非 Sony 相機 (NEF, CR3, DNG) 嘅 source tag 會係咩？
+- 非 Sony 相機 (NEF, CR3, DNG) 嘅 ACR source tag 會係咩？CR3 個 container 已經拆咗，但未有連住 XMP 同 ACR 嘅 export
 - Lightroom 肯唔肯 import 一個自己砌出嚟嘅 ACR？
 
 如果你手上有其他牌子相機嘅 export，一個 hex dump 就可以幫手填多一格。Reader script 同所有圖嘅 generator 都喺 [lightroom-recovery](https://github.com/byronwai/lightroom-recovery) (`scripts/acr_reader.py`、`scripts/make_blog_figures.py`)。
