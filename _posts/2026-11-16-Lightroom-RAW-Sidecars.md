@@ -10,6 +10,7 @@ tags: [Photography, Lightroom, Reverse Engineering, File Format]
 - ARW: Sony RAW sensor data
 - XMP: Program, 曝光顏色調整, Parametric Mask
 - ACR: AI generate 嘅 raster mask 同 Remove patch。無咗可能要重新計算，唔保證還原到同一個結果
+- 工具：[LR Sidecar Compiler](https://lr-sidecar.byronwai.workers.dev/)，將 RAW + XMP + ACR 喺 browser 逐層重組。Source 喺 GitHub：[byronwai/lr-sidecar](https://github.com/byronwai/lr-sidecar)
 
 ![DSC03049 as a shader pipeline: ARW in, XMP and ACR passes, JPG out]({{ site.baseurl }}/assets/images/lightroom/blog-shader-pipeline.png)
 
@@ -172,6 +173,14 @@ XMP 就是 XML。略等於最終 Output 生成嘅 prompt。
 所以寫 reader 唔可以淨係認一個 container name；兩個 sequence 都要睇，再確認 entry 有冇對應嘅 patch。`RetouchAreas` 亦可能包含傳統 heal / clone，唔係見到個名就當全部都係 GenAI。以上係呢組實際檔案驗證到嘅行為，唔代表已經拆晒 Adobe 所有版本。
 
 ## 自己砌個 Sidecar Compiler
+
+[![LR Sidecar Compiler]({{ site.baseurl }}/assets/images/lightroom/lr-sidecar-icon.png){: width="72" }](https://github.com/byronwai/lr-sidecar)
+
+> **[byronwai/lr-sidecar](https://github.com/byronwai/lr-sidecar)** · Apache-2.0 · 純 browser，唔 upload 相
+>
+> Sony ARW / Canon CR3 + XMP + ACR → 逐個 pass 重組 Lightroom 嘅 edit，仲可以 export IG Reel。
+>
+> [打開 Compiler](https://lr-sidecar.byronwai.workers.dev/) · [Source code](https://github.com/byronwai/lr-sidecar) · [新手教學（英文）](https://github.com/byronwai/lr-sidecar/blob/main/docs/GUIDE.md)
 
 拆完唔想淨係睇 hex，所以砌咗個 [LR Sidecar Compiler](https://lr-sidecar.byronwai.workers.dev/)，[source 喺 GitHub](https://github.com/byronwai/lr-sidecar)。將 ARW（或者 Canon CR3）、XMP 同 ACR 拖入去，就可以喺 browser 睇每個 pass 點樣改張相。相片喺本機處理，唔會 upload 去 server。
 
